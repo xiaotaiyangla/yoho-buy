@@ -73,8 +73,8 @@
         top:0;
         left:0;
         width:100vw;
-        height: 3.28125rem;
-        line-height: 3.28125rem;
+        height: 2.625rem;
+        line-height: 2.625rem;
         background-color:#4f4138;
         background-image: linear-gradient(#323232,#414141);
         color:#fff;
@@ -84,8 +84,8 @@
             top: 0;
             display: block;
             width: 2.625rem;
-            height: 3.28125rem;
-            line-height: 3.28125rem;
+            height: 2.625rem;
+            line-height: 2.625rem;
             font-size: 28px;
             font-weight: bold;
             text-align: center;
