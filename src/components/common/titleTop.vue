@@ -69,6 +69,7 @@
         color: white;
     }
     .title-top{
+        box-sizing: border-box;
         position: fixed;
         top:0;
         left:0;
@@ -95,7 +96,7 @@
             right: 0;
         }
         h2{
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             font-weight: 400;
             text-align: center;
         }
