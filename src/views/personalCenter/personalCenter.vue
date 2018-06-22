@@ -93,13 +93,17 @@
         background-color: #EFF0EF;
     }
     .bgtop{
-        margin-top:3.28125rem;
+        box-sizing: border-box;
+        margin-top:2.625rem;
         width: 100%;
         padding: 1.15rem 0 1.45rem;
         height: 5.1rem;
         background: url("https://cdn.yoho.cn/yohobuywap-node/6.6.15/img/home/index/header-bg.jpg?163fdd2c860") no-repeat;
         -webkit-background-size: cover;
         background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         .login-btn{
             width: 7.2rem;
             height: 1.8rem;
@@ -107,7 +111,8 @@
             text-align: center;
             border: .1rem solid #fff;
             font-size: 14px;
-            margin: 1.3rem auto 0;
+            margin-left: auto;
+            margin-right: auto;
             a{
                 color: #fff;
             }

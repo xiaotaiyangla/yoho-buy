@@ -79,7 +79,6 @@
         background-color:#4f4138;
         background-image: linear-gradient(#323232,#414141);
         color:#fff;
-
         .back,.iconviewlist{
             position: absolute;
             top: 0;
@@ -87,7 +86,7 @@
             width: 2.625rem;
             height: 2.625rem;
             line-height: 2.625rem;
-            font-size: 28px;
+            font-size: 27px;
             font-weight: bold;
             text-align: center;
             vertical-align: baseline;
@@ -102,11 +101,11 @@
         }
     }
     .viewlist{
-        position: absolute;
-        width: 8rem;
         height: 8.875rem;
+        top: 2.9rem;
+        position: absolute;
+        width: 7rem;
         right: .3rem;
-        top: 3.8rem;
         z-index: 999;
         padding-top: .425rem;
         background-image: linear-gradient(#434343,#171717);
@@ -119,7 +118,7 @@
             border-bottom:12px solid #383938;
             position: absolute;
             right:.5rem;
-            top: -0.7rem;
+            top: -0.6rem;
 
         }
         .l-icon,.r-text {
@@ -128,16 +127,17 @@
             float:left;
         }
         .l-icon li{
-            width:1.75rem;
+            font-size: 1rem;
+            color: #fff;
             height: 2.1rem;
             line-height: 2.1rem;
             padding-left: 1rem;
-            font-size:1.2rem;
         }
         .r-text li{
-            text-align: center;
-            font-size: .85rem;
-            width: 4.25rem;
+            text-align: left;
+            font-size: .7rem;
+            width: 3.55rem;
+            margin-left:.7rem;
             height: 2.1rem;
             padding-left: .5rem;
             border-bottom: 1px solid #444;
