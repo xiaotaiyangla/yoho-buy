@@ -31,11 +31,12 @@
                         <span class="iconfont icon-xiasanjiao"></span>
                         <input type="tel" placeholder="请输入手机号" v-model="username" class="tel-input">
                     </div>
-                    <div>
+                    <div style="margin-bottom:0.5rem;">
                         <span class="iconfont icon-securityCode-b"></span>
                         <input type='text' v-model="verifyCode" placeholder="请输入验证码">
-                        <div class="for-code">获取验证码</div>
+                        <div class="for-code" @click="changeImg">更改验证码</div>
                     </div>
+                    <img :src="imgsrc">
                     <button class="btn" type="button" @click="okSignIn">登录</button>
                 </div>
             </div>
@@ -80,7 +81,8 @@
                 path:this.$route.path,
                 international:false,
                 signIn:true,
-                sms:false
+                sms:false,
+                imgsrc:"http://10.80.13.184:3000/captcha"
             }
         },
         methods:{
@@ -90,7 +92,7 @@
             okSignIn(){
                 this.$http.post('/api/login',{
                     username:this.selected+this.username,
-
+                    verifyCode:this.verifyCode
                 })
             },
             changeTag(){
@@ -100,6 +102,9 @@
             changeTag2(){
                 this.sms = true;
                 this.signIn = false;
+            },
+            changeImg(){
+                this.imgsrc = "http://10.80.13.184:3000/captcha?rt="+Math.random();
             }
         }
     }
@@ -122,13 +127,13 @@
             display: flex;
             span{
                 width: 100%;
-                height:3.13rem;
+                height:2.5rem;
                 flex:1;
                 background-color: #fff;
                 color:#444;
                 font-size:14px;
                 text-align: center;
-                line-height: 3.13rem;
+                line-height: 2.5rem;
             }
             span:last-child{
                 background-color: #000;
@@ -138,31 +143,33 @@
     }
 .signin-top{
     width: 100%;
-    height:8.95rem;
+    box-sizing: border-box;
+    height: 7.25rem;
+    padding: 0 1.875rem;
     background: url("http://img11.static.yhbimg.com/yhb-img01/2018/03/26/10/01cf2c685c5d7ddbb21b7c7b961da77454.jpg?imageView2/2/w/750/h/290") no-repeat;
     background-size: cover;
     .top-con{
-        width: 78%;
+        width: 100%;
         height: 100%;
-        margin: 0 auto;
-        position: relative;
         border: 1px solid transparent;
+        position: relative;
         .block1{
             margin-top:1.25rem;
             .icon-fanhui{
                 color:#fff;
                 font-size:1.25rem;
+                width:1.25rem;
             }
             .tosignup{
+                width: 2.75rem;
+                height: 1.25rem;
+                line-height: 1.25rem;
+                border-radius: .625rem;
                 border: 1px solid #fff;
                 color:#fff;
                 float:right;
-                width: 2.75rem;
-                height: 1.25rem;
-                line-height:1.25rem;
                 background-color: transparent;
                 text-align: center;
-                border-radius: .8rem;
                 font-size:14px;
                 padding: 0rem .2rem;
                 margin-top: -.1rem;
@@ -170,7 +177,7 @@
         }
         p{
             position: absolute;
-            bottom: .45rem;
+            bottom: .35rem;
             width: 100%;
             text-align: center;
             font-size:0.55rem;
@@ -180,8 +187,10 @@
     }
 }
     .sign-wrap,.other-way{
-        width: 18.65rem;
-        margin: 1.55rem auto 0;
+        box-sizing: border-box;
+        width: 100%;
+        padding:0 1.875rem;
+        margin-top: 1.5rem;
         font-size: 1rem;
         line-height: 1.25rem;
     }
@@ -190,7 +199,7 @@
             border-bottom: 1px solid #e0e0e0;
             height: 1.25rem;
             padding-bottom:5px;
-            margin-bottom: 1.4rem;
+            margin-bottom: 1.55rem;
             #country{
                 outline: none;
                 font-weight: normal;
@@ -199,10 +208,11 @@
                 font-size: 14px;
             }
             .iconfont{
-                margin-right: 0.75rem;
+                font-size: .65rem;
+                margin-right: .75rem;
             }
             .icon-xiasanjiao{
-                font-size:13px;
+                font-size:.3rem;
                 padding-right: 3px;
                 border-right: 1px solid;
             }
@@ -211,31 +221,30 @@
                 outline: none;
             }
             .for-code{
-                padding: .1rem .4rem;
-                height: 1.45rem;
-                line-height: 1.45rem;
+                padding: 0 .4rem;
+                height: 1.25rem;
+                line-height: 1.25rem;
                 border-radius: .625rem;
                 background-color: #b0b0b0;
                 color: #fff;
                 font-size: .55rem;
-                text-align: center;
                 float: right;
-                margin-top:-.3rem;
+                text-align: center;
                 outline: none;
                 cursor: pointer;
             }
         }
         button.btn{
-            width: 100%;
-            height: 2rem;
-            line-height: 2rem;
-            border-radius: .2rem;
-            margin-top: 1rem;
+            height: 1.75rem;
+            border-radius: .1rem;
+            background-color: #b0b0b0;
+            margin-top: .2rem;
+            font-size: .8rem;
             color: #fff;
+            width: 100%;
+            line-height: 1.75rem;
             outline: none;
             text-align: center;
-            font-size: 1rem;
-            background-color: #b0b0b0;
         }
     }
     .cover{
@@ -275,7 +284,7 @@
     }
     .other-way{
         display: flex;
-        margin-top:1.1rem;
+        margin-top: .75rem;
         li{
             font-size:12px;
             color:#000;

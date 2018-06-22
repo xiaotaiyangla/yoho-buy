@@ -33,16 +33,18 @@
                 <span class="iconfont icon-mn_tianjiahaoyou_fill"></span>
                 <input type="text" v-model="friend_code" placeholder="好友潮口令 (非必填)">
             </div>
-            <div>
+            <div style="margin-bottom:0.5rem;">
                 <span class="iconfont icon-securityCode-b"></span>
                 <input type="text" v-model="verifyCode" placeholder="请输入验证码">
                 <div class="for-code" @click="changeImg">更改验证码</div>
             </div>
             <img :src="imgsrc">
             <button class="btn" type="button" @click="goToRegister" :disabled="checkTel">注册</button>
+            <p class="yestext">
+                <i class="iconfont icon-xuanze"></i>
+                <span>我已阅读并同意遵守<a href="###" class="forred">Yoho!Buy有货服务条款</a></span>
+            </p>
         </div>
-
-        {{checkTel}}
     </div>
 
 
@@ -113,9 +115,12 @@
 <style lang="less" scoped>
     @import './iconfont.css';
     .signup-wrap{
-        width: 18.65rem;
-        margin: 1.55rem auto 0;
-        font-size: 1rem;
+        box-sizing: border-box;
+        width: 100%;
+        padding-left: 1.875rem;
+        padding-right: 1.875rem;
+        font-size: .6rem;
+        margin-top:1.25rem;
         line-height: 1.25rem;
         .signup-title{
             width: 100%;
@@ -123,10 +128,18 @@
             font-size: 1.1rem;
             text-align: center;
             color: #444;
-            margin-bottom:3.15rem;
+            margin-bottom:2.5rem;
             .icon-fanhui{
-                float:left;
+                width: 1.25rem;
                 font-size: 1.125rem;
+                padding: 0;
+                height: 1.25rem;
+                color: #444;
+                float:left;
+            }
+            span{
+                font-size: .85rem;
+                margin-top: .175rem;
             }
         }
         .sign-form{
@@ -143,28 +156,29 @@
                     font-size: 14px;
                 }
                 .iconfont{
-                    margin-right: 0.75rem;
+                    font-size: .65rem;
+                    margin-right: .75rem;
                 }
                 .icon-xiasanjiao{
-                    font-size:13px;
+                    font-size:.3rem;
                     padding-right: 3px;
                     border-right: 1px solid;
+                    color:#444;
                 }
                 input{
                     font-size: 14px;
                     outline: none;
                 }
                 .for-code{
-                    padding: .1rem .4rem;
-                    height: 1.45rem;
-                    line-height: 1.45rem;
+                    padding: 0 .4rem;
+                    height: 1.25rem;
+                    line-height: 1.25rem;
                     border-radius: .625rem;
                     background-color: #b0b0b0;
                     color: #fff;
                     font-size: .55rem;
-                    text-align: center;
                     float: right;
-                    margin-top:-.3rem;
+                    text-align: center;
                     outline: none;
                     cursor: pointer;
                 }
@@ -174,18 +188,33 @@
                 }
             }
             button.btn{
-                border:0;
-                width: 100%;
-                height: 2rem;
-                line-height: 2rem;
-                border-radius: .2rem;
-                margin-top: 1rem;
+                height: 1.75rem;
+                border-radius: .1rem;
+                background-color: #b0b0b0;
+                margin-top: .2rem;
+                font-size: .8rem;
                 color: #fff;
+                width: 100%;
+                line-height: 1.75rem;
                 outline: none;
                 text-align: center;
-                font-size: 1rem;
-                background-color: #b0b0b0;
             }
+            .yestext{
+                width: 100%;
+                text-align: center;
+                margin-top: .5rem;
+                font-size: .4rem;
+                color: #444;
+                .forred{
+                    font-size: .4rem;
+                    color: #c00;
+                    text-decoration: underline;
+                }
+                .icon-xuanze{
+
+                }
+            }
+
         }
 
     }
