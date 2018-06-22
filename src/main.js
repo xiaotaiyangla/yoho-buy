@@ -11,10 +11,15 @@ Vue.use(VueAwesomeSwiper)
 //导入小图标的css文件
 require('/Users/lanou/Desktop/My/Vue/yoho-buy/src/assets/font/iconfont.css')
 
-Vue.config.productionTip = false
+import axios from 'axios'
+import $ from 'jquery'
+Vue.prototype.$http = axios;
+Vue.prototype.$api = "/api";
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
+    axios,
   render: h => h(App)
 }).$mount('#app')
