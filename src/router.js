@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PersonalCenter from './views/personalCenter'
+import PersonalCenter from './views/personalCenter/personalCenter'
 import Index from './views/index'
-import Search from './views/search'
+import Search from './views/search/search'
 import SignIn from './views/signIn'
+//新品到着页面
+import New from './views/new'
+import SignUp from './views/signUp/signUp'
+import International from './views/international'
+import Sms from './views/sms'
+import Cate from './views/cate/cate'
 Vue.use(Router)
 
 export default new Router({
@@ -24,26 +30,49 @@ export default new Router({
           path:'/personalCenter',
           name:'personalCenter',
           component: PersonalCenter,
-          //失败
-          // children:[
-          //     {
-          //         path:"signIn",
-          //         name:"signIn",
-          //         component:SignIn
-          //     }
-          // ]
       },
       //登录页面
       {
           path:'/signIn',
           name:'signIn',
-          component:SignIn
+          component:SignIn,
+          children:[
+              {
+                  path:'international',
+                  name:'international',
+                  component:International
+              },
+              {
+                  path:'sms_signIn',
+                  name:'sms',
+                  component:Sms
+              },
+
+          ]
+      },
+      //注册页面
+      {
+          path:'/signUp',
+          name:'signUp',
+          component:SignUp
       },
       //搜索页面路由
       {
           path:'/search',
           name:'search',
           component:Search
+      },
+      //新品到着页面
+      {
+          path:'/lifestyle-new',
+          name:'new',
+          component:New
+      },
+      //分类页面
+      {
+          path: '/cate',
+          name:'cate',
+          component:Cate
       }
   ]
 })
