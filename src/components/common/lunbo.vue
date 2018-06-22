@@ -1,5 +1,4 @@
 <template>
-
     <div class="container">
         <swiper class="swiper" :options="swiperOption"  ref="mySwiper">
             <!-- 这部分放你要渲染的那些内容 -->
@@ -78,20 +77,19 @@
     .container {
         position: relative;
         width: 100%;
-        height: 7.8rem;
-        max-height: 7.8rem;
+        height: 9.1rem;
+        max-height: 9.1rem;
         overflow: hidden;
         padding-left: 0;
-
         .swiper{
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 9.1rem;
             .swiper-slide {
                 a {
                     float: left;
                     width:100%;
-                    height: 100%;
+                    height: 9.1rem;
                     text-decoration: none;
                     img {
                         width: 100%;
@@ -101,11 +99,11 @@
             }
             .swiper-pagination {
                 position: absolute;
-                bottom:0.5rem;
-                left: 6rem;
+                bottom:0.7rem;
+                left: 7.6rem;
                 display: inline-block;
-                padding: .15rem .1rem ;
-                width: 3.4rem;
+                padding: .17rem .1rem ;
+                width: 3.8rem;
                 line-height: 1.2;
                 background: rgba(0,0,0,0.2);
                 border-radius: 1.25rem;
@@ -116,8 +114,8 @@
                 .my-bullet {
                     float: left;
                     display: inline-block;
-                    width: 0.35rem;
-                    height: 0.35rem;
+                    width: 0.37rem;
+                    height: 0.37rem;
                     border: 1px solid lightgrey;
                     border-radius: 50%;
                     background: transparent;

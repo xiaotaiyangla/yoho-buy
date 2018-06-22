@@ -52,6 +52,8 @@
                     this.title = "index";
                 }else if(this.path == '/search'){
                     this.title = "搜索";
+                }else if(this.path == '/lifestyle-new'){
+                    this.title = '新品到着'
                 }
             }
         },
@@ -69,8 +71,9 @@
         color: white;
     }
     .title-top{
+        z-index: 6;
         box-sizing: border-box;
-        position: fixed;
+        /*position: fixed;*/
         top:0;
         left:0;
         width:100vw;
