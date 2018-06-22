@@ -44,8 +44,8 @@
             background: #fff;
             li {
                 float: left;
-                width: 4rem;
-                height: 4.35rem;
+                width: 25%;
+                height: 5.0977rem;
                 border-top: 1px solid #e0e0e0;
                 border-left: 1px solid #e0e0e0;
                 box-sizing: border-box;
