@@ -240,8 +240,8 @@
 </template>
 
 <script>
-
-// import footerVue from '../common/footer.vue'
+// import swiperVue from '../common/lunbo.vue'
+import footerVue from '../common/footer.vue'
 export default {
     
 };
