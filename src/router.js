@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import PersonalCenter from './views/personalCenter/personalCenter'
 import Index from './views/index'
-import Search from './views/search'
+import Search from './views/search/search'
 import SignIn from './views/signIn'
 //新品到着页面
 import New from './views/new'
