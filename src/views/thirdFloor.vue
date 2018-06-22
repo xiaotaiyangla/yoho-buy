@@ -52,23 +52,26 @@
 <style lang="less" scoped>
     .hot-brands {
         overflow: hidden;
-        border-top: 1px solid #e0e0e0;
+        // border-top: 1px solid #e0e0e0;
         border-bottom: 1px solid #e0e0e0;
 
         background: #fff;
         .brand {
             float: left;
             background-color: #e0e0e0;
-            width: 4rem;
-            height: 4rem;
+            width: 25%;
+            height: 4.6875rem;
             overflow: hidden;
             padding: 1px 1px 0 0;
             box-sizing: border-box;
+            &:nth-child(4) {
+                padding-right: 0;
+            }
         }
         .more {
             float: left;
-            width: 8rem;
-            height: 4rem;
+            width: 50%;
+            height: 4.6875rem;
             overflow: hidden;
         }
         a {
