@@ -8,4 +8,8 @@
 
 
 <style lang="less" scoped>
+  #app {
+    max-width: 16rem;
+    margin: 0 auto;
+  }
 </style>

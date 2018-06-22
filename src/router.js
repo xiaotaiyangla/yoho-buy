@@ -4,6 +4,8 @@ import PersonalCenter from './views/personalCenter/personalCenter'
 import Index from './views/index'
 import Search from './views/search'
 import SignIn from './views/signIn'
+//新品到着页面
+import New from './views/new'
 import SignUp from './views/signUp/signUp'
 import International from './views/international'
 import Sms from './views/sms'
@@ -59,6 +61,12 @@ export default new Router({
           path:'/search',
           name:'search',
           component:Search
+      },
+      //新品到着页面
+      {
+          path:'/lifestyle-new',
+          name:'new',
+          component:New
       },
       //分类页面
       {
