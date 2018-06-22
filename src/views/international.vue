@@ -72,17 +72,20 @@
 <style lang="less" scoped>
     @import './signUp/iconfont.css';
     .signup-wrap{
-        width: 18.65rem;
-        margin: 1.55rem auto 0;
+        width: 100%;
+        box-sizing: border-box;
+        height: 7.25rem;
+        padding: 0 1.875rem;
+        margin-top: 1.25rem;
         font-size: 1rem;
         line-height: 1.25rem;
         .signup-title{
             width: 100%;
             height: 1.25rem;
-            font-size: 1.1rem;
+            font-size: 0.85rem;
             text-align: center;
             color: #444;
-            margin-bottom:3.15rem;
+            margin-bottom:2.5rem;
             .icon-fanhui{
                 float:left;
                 font-size: 1.125rem;
@@ -94,6 +97,7 @@
                 height: 1.25rem;
                 padding-bottom:5px;
                 margin-bottom: 1.4rem;
+                font-size:0.85rem;
                 #country{
                     outline: none;
                     font-weight: normal;
@@ -120,15 +124,15 @@
             }
             button.btn{
                 width: 100%;
-                height: 2rem;
+                height: 1.75rem;
                 border:0;
-                line-height: 2rem;
-                border-radius: .2rem;
+                line-height: 1.75rem;
+                border-radius: .1rem;
                 margin-top: 1rem;
                 color: #fff;
                 outline: none;
                 text-align: center;
-                font-size: 1rem;
+                font-size: .8rem;
                 background-color: #b0b0b0;
             }
         }
