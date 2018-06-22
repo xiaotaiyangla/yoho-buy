@@ -240,7 +240,11 @@
 </template>
 
 <script>
-export default {};
+
+// import footerVue from '../common/footer.vue'
+export default {
+    
+};
 </script>
 
 <style lang="less" scoped>
