@@ -1,12 +1,12 @@
 <template>
     <div>
-        这是注册页面
+        这是路由测试
     </div>
 </template>
 
 <script>
     export default {
-        name: "signUp"
+        name: "xm"
     }
 </script>
 

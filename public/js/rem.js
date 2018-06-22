@@ -15,7 +15,7 @@
 
   // set 1rem = viewWidth / 16
   function setRemUnit () {
-    var rem = docEl.clientWidth / 16
+    var rem = docEl.clientWidth / 18.75
     if (rem > 40) {
       rem = 40
     }
