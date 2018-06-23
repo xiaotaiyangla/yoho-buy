@@ -4,22 +4,35 @@
         <div>
             <!-- 顶部 -->
             <header>
-
             </header>
-            <!-- 轮播图 -->
-            <a>
-            <img src="" alt="">
-            </a>
+            <!-- 轮播图 单张 -->
+            <!-- <div class="single-photo">
+                <img src="" alt="">
+            </div> -->
+            <!-- 轮播图 多张-->
+            <!-- <swiperVue></swiperVue> -->
+            <div class="container">
+                <swiper class="swiper" :options="swiperOption"  ref="mySwiper">
+                    <!-- 这部分放你要渲染的那些内容 -->  
+                    <swiper-slide class="swiper-slide" data-swiper-autoplay="3000">
+                        <a href="">
+                            <img v-if="goodslist.goodsImgs"  v-for="item in goodslist.goodsImgs"    :src="item" alt=""   :key="goodslist.id">
+                        </a>
+                    </swiper-slide>
+                    <!-- 这是轮播的小圆点-->
+                    <div :class="swiperPagination" slot="pagination"></div>
+                </swiper>
+            </div>
             <!-- 商品名称 -->
             <div class="goods-name">
                 <h1 class="name">
-                    CLING BAND 运动智能手环-艳糖果
+                    {{goodslist.goodsName}}
                 </h1>
             </div>
             <!-- 价格 -->
             <div class="price-data">
-                <h2 class="current-price">¥128.00</h2>
-                <h2 class="previous-price">¥220.00</h2>
+                <h2 class="current-price" v-if="goodslist.goodsPrice">¥{{goodslist.goodsPrice.currentPrice}}</h2>
+                <h2 class="previous-price" v-if="goodslist.privousPrice">{{goodslist.privousPrice}}</h2>
             </div>
             <!-- 卡 -->
             <ul class="price-data card">
@@ -51,21 +64,21 @@
         <div class="feedback">
             <!-- 头 -->
             <div class="nav">
-                <span class="nav-left">商品评价（27）</span>
-                <span class="nav-right">常见问题</span>
+                <span class="nav-left" v-if="goodslist.comments"  >商品评价（{{goodslist.comments.count}}）</span>
+                <span class="nav-right" @click="active()" ref="navRight">常见问题</span>
             </div>
             <!-- 商品评价页面 -->
-            <div class="comment-page">
+            <div class="commentPage" v-if="commentPageChange">
                 <div>
                     <p>
-                        <span class="username">1515***5151</span>
-                        <span class="goods-spec">购买了白色</span>
+                        <span class="username" >1515***5151</span>
+                        <span class="goods-spec" >购买了白色</span>
                     </p>
-                    <p class="detail-content">
+                    <p class="detail-content" >
                         6666
                     </p>
-                    <p class="time">
-                        <span class="comment-time">2018-06-18  08:35:09</span>
+                    <p class="time" >
+                        <span class="comment-time" >2018-06-18  08:35:09</span>
                     </p>
                 </div>
                 <!-- 查看更多 -->
@@ -123,12 +136,12 @@
                 </h2>
                 <!--商品详情  -->
                 <div class="detail-table">
-                    <span class="column">编号：</span>
-                    <span class="color">颜色：</span>
-                    <span class="gender">性别：</span> 
+                    <span class="column" v-if="goodslist.goodsInfo">编号：{{goodslist.goodsInfo.attr[0]}}</span>
+                    <span class="color" v-if="goodslist.goodsInfo">颜色：{{goodslist.goodsInfo.attr[1]}}</span>
+                    <span class="gender" v-if="goodslist.goodsInfo">性别：{{goodslist.goodsInfo.attr[2]}}</span> 
                 </div>
                 <div class="element">
-                    <span >熊果苷</span>
+                    <span   v-if="goodslist.goodsInfo">{{goodslist.goodsInfo.text}}</span>
                </div>
             </div>
         </div>
@@ -162,8 +175,10 @@
                      <span style="color:#ff0000" class="notice">温馨提示：我们不接受包装盒已被开封的商品的退换货（商品外包装盒上的透明封装胶带已被撕开同样视为开封），请您谅解！</span>
                     <!-- <span>包装更新</span> -->
                 </div>
+                <div class="showpicture">
                 <!-- 商品图片 -->
-                <img src="" alt="">
+                <img   src="https://img12.static.yhbimg.com/goodsimg/2018/05/25/18/02edfd15075da626aee83ded4d2f000442.jpg?imageMogr2/thumbnail/750x/quality/60/interlace/1/format/webp" alt="" style="width:17.31rem
+                "></div>
             </div>
         </div>
         <!-- 第七层 店铺推荐-->
@@ -238,12 +253,92 @@
        
     </div>
 </template>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-//import swiperVue from '../common/lunbo.vue'
-import footerVue from '../common/footer.vue'
+// import swiperVue from '../common/lunbo.vue'
+import { swiper, swiperSlide } from "vue-awesome-swiper";
+import footerVue from "../common/footer.vue";
 export default {
-    
+  name: "detail_introduce",
+  data() {
+    return {
+      //轮播部分
+      swiperOption: {
+        //以下配置不懂的，可以去swiper官网看api，链接http://www.swiper.com.cn/api/
+        // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，<br>　　　　　　　　假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+        notNextTick: true,
+        // swiper configs 所有的配置同swiper官方api配置
+        // autoplay: true,
+        direction: "horizontal",
+        grabCursor: true,
+        setWrapperSize: true,
+        autoHeight: true,
+        loop: false,
+        pagination: {
+          el: ".swiper-pagination",
+          //   type:"custom",
+          bulletClass: "my-bullet",
+          bulletActiveClass: "my-bullet-active",
+          clickable: true,
+          hideOnClick: false
+        },
+        paginationClickable: true,
+        // prevButton: '.swiper-button-prev',//上一张
+        // nextButton: '.swiper-button-next',//下一张
+        // scrollbar: '.swiper-scrollbar',//滚动条
+        // pagination:false,
+        mousewheelControl: true,
+        observeParents: true,
+        oberser: true,
+        // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
+        debugger: true
+      },
+      goodslist: {},
+      swiperPagination: false,
+      commentPage: true
+    };
+  },
+  components: {
+    footerVue,
+    // swiperVue,
+    swiper,
+    swiperSlide
+  },
+  created() {
+    axios
+      .get("api/goods", {
+        params: {
+          goodsid: 1021225
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        // console.log(this.goodslist)
+        this.goodslist = response.data;
+        console.log(this.goodslist);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+  computed: {
+    showimg() {
+      if (this.goodslist.goodsImgs.length > 1) {
+        return this.loop == true;
+        return this.swiperPagination == true;
+      }
+    },
+    commentPageChange() {
+      if (this.goodslist.comments) {
+        return this.commentPage == false;
+      }
+    }
+  },
+  methods: {
+    active() {
+      this.$refs.navRight.style.color = "black";
+    }
+  }
 };
 </script>
 
@@ -391,8 +486,8 @@ export default {
     }
   }
   //商品评价页面
-  .comment-page {
-    display: none;
+  .commentPage {
+    // display: none;
     .username {
       font-size: 0.6rem;
       line-height: 1.55rem;
@@ -572,27 +667,87 @@ export default {
     letter-spacing: 1px;
     word-break: break-all;
   }
+  //图片为行间样式
 }
-.return-top{
-    position: absolute;
-    top: 1.175rem;
-    right: 1.175rem;
-    left: auto;
-    bottom: auto;
-    border-radius: 50%;
-    width: 2.2rem;
-    height: 2.2rem;
-    background: url(https://cdn.yoho.cn/yohobuywap-node/6.6.15/img/product/back-to-top.png?163fdd2c876) no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover;
-    display: none;
-    z-index: 10000;
-    position: fixed;
-    top: auto;
-    left: auto;
-    right: .75rem;
-    bottom: 3.5rem;
-    z-index: 9999;
-    display: block;
+.return-top {
+  position: absolute;
+  top: 1.175rem;
+  right: 1.175rem;
+  left: auto;
+  bottom: auto;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: url(https://cdn.yoho.cn/yohobuywap-node/6.6.15/img/product/back-to-top.png?163fdd2c876)
+    no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+  display: none;
+  z-index: 10000;
+  position: fixed;
+  top: auto;
+  left: auto;
+  right: 0.75rem;
+  bottom: 3.5rem;
+  z-index: 9999;
+  display: block;
+}
+
+//轮播图
+.container {
+  position: relative;
+  width: 100%;
+  height: 16.7rem;
+  max-height: 16.7rem;
+  overflow: hidden;
+  // padding-left: 0;
+
+  .swiper {
+    position: relative;
+    margin: 0.75rem auto;
+    width: 11.2rem;
+    height: 16.7rem;
+    .swiper-slide {
+      width: 260px;
+      // margin-right: 3px;
+      a {
+        float: left;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .swiperPagination {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 4rem;
+      display: inline-block;
+      padding: 0.17rem 0.1rem;
+      width: 2.6rem;
+      line-height: 1.3;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 1.25rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      .my-bullet {
+        float: left;
+        display: inline-block;
+        width: 0.37rem;
+        height: 0.37rem;
+        border: 1px solid lightgrey;
+        border-radius: 50%;
+        background: transparent;
+      }
+      .my-bullet-active {
+        background: #ffffff;
+      }
+    }
+  }
 }
 </style>

@@ -1,17 +1,8 @@
 <template>
-<<<<<<< HEAD
-    <div id="app">
-        <detailIntroduce></detailIntroduce>
-        <!-- <router-view/> -->
-    </div>
-    
-</template> 
-=======
   <div id="app">
     <router-view></router-view>
   </div>
 </template>
->>>>>>> develop
 <script>
     import detailIntroduce from "./components/detail_introduction/detail_introduce";
     export default {

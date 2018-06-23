@@ -10,12 +10,18 @@ import SignUp from './views/signUp/signUp'
 import International from './views/international'
 import Sms from './views/sms'
 import Cate from './views/cate/cate'
-import Xm from './views/xm'
+import DetailPro from './components/detail_introduction/detail_introduce'
 Vue.use(Router)
 
 export default new Router({
     mode:"history",
   routes: [
+      //商品详情
+      {
+        path:'/product',
+        name:"product",
+        component:DetailPro
+      },
       {
         path:'/',
         redirect:'/index'
