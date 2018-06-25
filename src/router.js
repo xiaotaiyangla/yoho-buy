@@ -13,6 +13,7 @@ import SignUp from './views/signUp/signUp'
 import International from './views/international'
 import Sms from './views/sms'
 import Cate from './views/cate/cate'
+import Xm from './views/xm'
 Vue.use(Router)
 
 export default new Router({

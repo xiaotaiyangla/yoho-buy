@@ -40,6 +40,7 @@
 
 <style lang="less" scoped>
     .footer-tab {
+        overflow: hidden;
         position: fixed;
         bottom: 0;
         left:0;

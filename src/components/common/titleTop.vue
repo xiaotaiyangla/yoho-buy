@@ -59,8 +59,9 @@
         color: white;
     }
     .title-top{
+        z-index: 6;
         box-sizing: border-box;
-        position: fixed;
+        /*position: fixed;*/
         top:0;
         left:0;
         width:100vw;

@@ -26,7 +26,7 @@
         width: 100%;
         background-color: #fff;
         font-size: 0.6rem;
-        margin-bottom: 100px;
+        margin-bottom: 2.6rem;
         .userRelevant {
             position: relative;
             padding: 0 .85rem;
