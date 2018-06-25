@@ -13,45 +13,64 @@ import SignUp from './views/signUp/signUp'
 import International from './views/international'
 import Sms from './views/sms'
 import Cate from './views/cate/cate'
-import Xm from './views/xm'
+import DetailPro from './components/detail_introduction/detail_introduce'
+import lifestyleBrands from './components/lifestyle_brands/lifestyle_brands'
+import cart from './components/cart/cart'
 Vue.use(Router)
 
 export default new Router({
-    mode:"history",
-  routes: [
-      {
-        path:'/',
-        redirect:'/index'
-      },
-      //首页路由
-      {
-          path:'/index',
-          name:'index',
-          component:Index
-      },
-      //个人中心路由
-      {
-          path:'/personalCenter',
-          name:'personalCenter',
-          component: PersonalCenter,
-      },
-      //登录页面
-      {
-          path:'/signIn',
-          name:'signIn',
-          component:SignIn,
-          children:[
-              {
-                  path:'international',
-                  name:'international',
-                  component:International
-              },
-              {
-                  path:'sms_signIn',
-                  name:'sms',
-                  component:Sms
-              },
-
+    mode: "history",
+    routes: [
+        //购物车
+        {
+            path:'/cart',
+            name:"cart",
+            component:cart
+        },
+        //商品详情
+        {
+            path: '/product',
+            name: "product",
+            component: DetailPro
+        },
+        //精选潮流品牌
+        {
+            path: "/lifestyle-brands",
+            name: "lifestyle-brands",
+            component: lifestyleBrands
+        },
+        {
+            path: '/',
+            redirect: '/index'
+        },
+        //首页路由
+        {
+            path: '/index',
+            name: 'index',
+            component: Index
+        },
+        //个人中心路由
+        {
+            path: '/personalCenter',
+            name: 'personalCenter',
+            component: PersonalCenter,
+        },
+        //登录页面
+        {
+            path: '/signIn',
+            name: 'signIn',
+            component: SignIn,
+            children: [
+                {
+                    path: 'international',
+                    name: 'international',
+                    component: International
+                },
+                {
+                    path: 'sms_signIn',
+                    name: 'sms',
+                    component: Sms
+                },
           ]
       },
       //注册页面

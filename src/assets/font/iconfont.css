@@ -44,4 +44,28 @@
 .icon-fanhuidingbu:before { content: "\e693"; }
 
 .icon-index:before { content: "\e502"; }
+.icon-arrow_lift:before {
+  content: "\e901";
+}
+.icon-check_circle:before {
+  content: "\e902";
+}
+.icon-favorite:before {
+  content: "\e904";
+}
+.icon-keyboard_arrow_right:before {
+  content: "\e905";
+}
+.icon-home2:before {
+  content: "\e903";
+}
+.icon-cart:before {
+  content: "\e93a";
+}
+.icon-notification:before {
+  content: "\ea08";
+}
+.icon-question:before {
+  content: "\ea09";
+}
 
