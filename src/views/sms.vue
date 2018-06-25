@@ -49,7 +49,9 @@
                 username:'',
                 password:'',
                 typepwd:"password",
-                forgetBox:false
+                forgetBox:false,
+                selected:'+86'
+
             }
         },
         methods:{

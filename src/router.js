@@ -4,6 +4,9 @@ import PersonalCenter from './views/personalCenter/personalCenter'
 import Index from './views/index'
 import Search from './views/search/search'
 import SignIn from './views/signIn'
+import List from './components/common/list/list'
+import ListToCate from './views/lcate'
+import Shop from './views/shop'
 //新品到着页面
 import New from './views/new'
 import SignUp from './views/signUp/signUp'
@@ -68,32 +71,49 @@ export default new Router({
                     name: 'sms',
                     component: Sms
                 },
-
-            ]
-        },
-        //注册页面
-        {
-            path: '/signUp',
-            name: 'signUp',
-            component: SignUp
-        },
-        //搜索页面路由
-        {
-            path: '/search',
-            name: 'search',
-            component: Search
-        },
-        //新品到着页面
-        {
-            path: '/lifestyle-new',
-            name: 'new',
-            component: New
-        },
-        //分类页面
-        {
-            path: '/cate',
-            name: 'cate',
-            component: Cate
-        }
-    ]
+          ]
+      },
+      //注册页面
+      {
+          path:'/signUp',
+          name:'signUp',
+          component:SignUp
+      },
+      //搜索页面路由
+      {
+          path:'/search',
+          name:'search',
+          component:Search,
+          children:[
+              {
+                  path:"list",
+                  name:"list",
+                  component:List
+              }
+          ]
+      },
+      //店铺的页面
+      {
+       path:'/shop/:sellerName',
+       name:"shop",
+       component: Shop
+      },
+      //新品到着页面
+      {
+          path:'/lifestyle-new',
+          name:'new',
+          component:New
+      },
+      //分类页面
+      {
+          path: '/cate',
+          name:'cate',
+          component:Cate
+      },
+      //分类页面跳到的搜索页面
+      {
+          path:'/list',
+          component:ListToCate
+      }
+  ]
 })

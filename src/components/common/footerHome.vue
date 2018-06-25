@@ -6,22 +6,29 @@
                 <p class="tab-name active">首页</p>
             </router-link>
         </li>
+
         <li>
-            <i class="iconfont icon-leimupinleifenleileibie hfcolor
-"></i>
-            <p class="tab-name">分类</p>
+            <router-link to="/cate">
+                <i class="iconfont icon-leimupinleifenleileibie hfcolor"></i>
+                <p class="tab-name">分类</p>
+            </router-link>
         </li>
         <li>
-            <i class="iconfont icon-gouwuche hfcolor"></i>
-            <p class="tab-name">购物车</p>
+            <router-link to="/cart">
+                <i class="iconfont icon-gouwuche hfcolor"></i>
+                <p class="tab-name">购物车</p>
+            </router-link>
         </li>
+
+
         <li>
             <i class="iconfont icon-wode-weixuanzhong hfcolor"></i>
             <router-link to="/personalCenter">
             <p class="tab-name">我的</p>
             </router-link>
-
         </li>
+
+
     </ul>
 </template>
 
