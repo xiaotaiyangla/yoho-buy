@@ -10,7 +10,7 @@ Vue.use(VueAwesomeSwiper)
 
 //导入小图标的css文件
 require('./assets/font/iconfont.css')
-
+require('./assets/font3/iconfont.css')
 import axios from 'axios'
 import $ from 'jquery'
 Vue.prototype.$http = axios;

@@ -1,11 +1,10 @@
 <template>
     <div class="icons-wrapper">
         <ul class="icons-list">
-            <li class="icons-item" v-for="item in items">
-                <router-link to="/lifestyle-new">
+            <li @click="goPage(index)" class="icons-item" v-for="(item,index) in items">
                 <a class="imgebar" href=""><img :src="item.src" alt=""></a>
                 <a class="linkbar" href="">{{item.name}}</a>
-                </router-link>
+
             </li>
         </ul>
     </div>
@@ -49,10 +48,18 @@
                         src:"http://img10.static.yhbimg.com/yhb-img01/2017/02/03/09/01f8ff4c9195b7f7f4774e911a6ea7936b.png?imageView2/2/w/98/h/98/q/60",
                         name:"折扣专区"
                     }
-                ]
+                ],
+                router:['','','/stock']
             }
 
-        }
+        },
+       methods:{
+            goPage(index){
+                this.$router.push({
+                    path:this.router[index]
+                })
+            }
+       }
     }
 </script>
 

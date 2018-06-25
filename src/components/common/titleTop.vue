@@ -52,8 +52,12 @@
                     this.title = "index";
                 }else if(this.path == '/search'){
                     this.title = "搜索";
-                }else if(this.path == '/lifestyle-new'){
+                }else if(this.path == '/lifestyle-new'){//待修改
                     this.title = '新品到着'
+                }else if(this.path == '/stock'){
+                    this.title = "领劵中心"
+                }else if(this.path == '/hotbrand'){
+                    this.title = "分类"
                 }
             }
         },

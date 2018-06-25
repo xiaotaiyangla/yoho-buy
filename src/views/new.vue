@@ -13,18 +13,11 @@
         </div>
         <!--tab切换-->
         <ul class="list-nav">
-            <a href="/lifestyle-new/xm">
-                <li class="navnav">a</li>
-            </a>
-
-            <li class="navnav">b</li>
-            <li class="navnav">c</li>
-            <li class="navnav">d</li>
-            <!--<li class="navnav"-->
-                <!--v-for="(item,index) in tabs"-->
-                <!--:class="{active:index == num}"-->
-                <!--@click="tab(index)">{{item}}-->
-            <!--</li>-->
+            <li class="navnav"
+                v-for="(item,index) in tabs"
+                :class="{active:index == num}"
+                @click="tab(index)">{{item}}
+            </li>
         </ul>
         <div class="tabCon">
             <div class="tabConCon"
@@ -56,6 +49,13 @@
             </div>
         </div>
         <router-view></router-view>
+        <!--固定购物车样式-->
+        <div class="suspend-cart">
+            <a href="">
+                <span class="iconfont icon-gouwuche_weixuanzhong"></span>
+            </a>
+            <span class="cart-count">1</span>
+        </div>
     </div>
 </template>
 
@@ -165,6 +165,41 @@
                     text-decoration: line-through;
                 }
             }
+        }
+    }
+    .suspend-cart {
+        position: fixed;
+        right:.95rem;
+        bottom:3.5rem;
+        z-index:10;
+        width:2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        background:rgba(0,0,0,0.3);
+        text-align: center;
+        line-height: 2.4rem;
+        a {
+            display: block;
+            width:100%;
+            height: 100%;
+            .iconfont {
+                color: #fff;
+                font-size: 1.2rem;
+            }
+        }
+        .cart-count {
+            position:absolute;
+            top:-.6rem;
+            right: -.5rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            background:#f03d35;
+            color:#fff;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.8rem;
+            transform:scale(.5);
         }
     }
 </style>
