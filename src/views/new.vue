@@ -1,98 +1,116 @@
 <template>
     <!--"新品到着"页面-->
     <div class="newpage">
-        <title-top></title-top>
+        <title-top :title='indexData.name'></title-top>
         <div class="dzimg">
-        <ul class="new-img">
-            <li class="new-slide">
-                <a href="">
-                    <img :src="piture.src" alt="">
-                </a>
+            <ul class="new-img">
+                <li class="new-slide">
+                    <a href="">
+                        <img :src="piture.src" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- list-->
+        <ul class="top-btn">
+            <li>6月25号</li>
+            <li>人气单品</li>
+            <li>本周上新</li>
+            <li>销量</li>
+            <li>筛选
+                <i class="iconfont icon-sanjiao_xia"></i>
             </li>
         </ul>
+        <div class="list-wrap">
+            <ul class="list-con">
+                <li v-for="item in data" :class="getClass(item.goodsId)">
+                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    <div class="desdetail">
+                        <p class="prosname">{{item.goodsName}}</p>
+                        <p class="aboutprice">
+                            <span class="cuprice" :class="{'cuprice2':item.goodsPrice.oldprice}">{{item.goodsPrice.currentPrice | price}}</span>
+                            <span v-if="item.goodsPrice.oldprice" class="oldprice">{{item.goodsPrice.oldprice | price}}</span>
+                            <span class="formore" @click="showSimilar(item)">
+                                <i class="iconfont icon-htmal5icon26"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="cover" v-show="item.isSimilar">
+                        <div class="similar">找相似</div>
+                    </div>
+                    <div class="newpro" v-if="item.isNewsale">NEW</div>
+                    <div class="saleout" v-if="item.isPresale">即将售罄</div>
+                </li>
+            </ul>
         </div>
-        <!--tab切换-->
-        <ul class="list-nav">
-            <a href="/lifestyle-new/xm">
-                <li class="navnav">a</li>
-            </a>
-
-            <li class="navnav">b</li>
-            <li class="navnav">c</li>
-            <li class="navnav">d</li>
-            <!--<li class="navnav"-->
-                <!--v-for="(item,index) in tabs"-->
-                <!--:class="{active:index == num}"-->
-                <!--@click="tab(index)">{{item}}-->
-            <!--</li>-->
-        </ul>
-        <div class="tabCon">
-            <div class="tabConCon"
-                 v-for='(itemCon,index) in tabContents'
-                 v-show="index == num">
-                {{itemCon}}
-                <!--<ul>-->
-                    <!--&lt;!&ndash;列表中的一项&ndash;&gt;-->
-                    <!--<li class="good-info">-->
-                        <!--&lt;!&ndash;图片上的留白&ndash;&gt;-->
-                        <!--<div class="tag-container"></div>-->
-                        <!--&lt;!&ndash;图片&ndash;&gt;-->
-                        <!--<div class="good-detail-img">-->
-                            <!--<a href=""><img :src="res.goodsImgs" alt=""></a>-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash;图片的名称，价格&ndash;&gt;-->
-                        <!--<div class="good-detail-text">-->
-                            <!--&lt;!&ndash;图片名&ndash;&gt;-->
-                            <!--<div class="name"><a href="">{{res.goodsName}}</a></div>-->
-                            <!--&lt;!&ndash;图片价格&ndash;&gt;-->
-                            <!--<div class="price">-->
-                                <!--<span class="sale-price">{{res.goodsPrice}}</span>-->
-                                <!--<span class="market-price"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</li>-->
-                <!--</ul>-->
-
-            </div>
-        </div>
-        <router-view></router-view>
+        <!-- 2个底部 -->
+        <footer-two></footer-two>
+        <footer-home></footer-home>
     </div>
 </template>
 
 <script>
+    import Bus from '../components/common/bus.js'
     import TitleTop from "../components/common/titleTop"
+  import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
+    import FooterHome from '../components/common/footerHome' //首页底部
     export default {
         name: "new",
+        components:{
+            TitleTop,FooterTwo,FooterHome
+        },
         data(){
             return {
                 piture:{
                     src:"http://img12.static.yhbimg.com/yhb-img01/2016/02/29/07/025d532df4d76507c663157d7f34927324.jpg?imageView2/2/w/640/h/240/q/60"
                 },
-                tabs:["6月22号","本周上新","销量","筛选"],
-                tabContents:["1","2","3","4"],
-                num:0
+                 data:{},
+                indexData:{},
             }
 
         },
-        methods:{
-          tab(index){
-              this.num = index;
-              this.$http.get('./api/goods/new-goods')
-                  .then(function (res) {
-                      console.log(res);
-                  })
-                  .catch(function (err) {
-                      console.log(err);
-                  })
-          }
+        created(){
+            this.$http.get('/api/goods/new-goods').then(({data})=>{
+                this.data = data;
+            });
+
         },
-        components:{
-            TitleTop
+        mounted(){
+            $('.top-btn li').click(function(){
+                $(this).css("color","#000").siblings().css("color","#999");
+            });
+            Bus.$on("sendDatas",(data)=>{
+                this.indexData= data;
+            })
+        },
+        methods:{
+            getClass(_id){
+                return "id"+_id;
+            },
+            showSimilar(item){
+                if(item.isSimilar == undefined){
+                    this.$set(item,"isSimilar",true);
+                }else{
+                    item.isSimilar = !item.isSimilar;
+                }
+            }
+        },
+        filters:{
+            price(price){
+                return "¥"+price;
+            }
         }
     }
 </script>
 
 <style lang="less" scoped>
+@import '../components/common/list/list.less';
+@import './search/iconfont.css';
+.list-wrap{
+    position: relative;
+    top:0;
+    left:0;
+}
     .dzimg {
         height: 5.9rem;
         width: 100%;

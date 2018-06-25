@@ -1,17 +1,16 @@
 <template>
     <div class="icons-wrapper">
         <ul class="icons-list">
-            <li class="icons-item" v-for="item in items">
-                <router-link to="/lifestyle-new">
-                <a class="imgebar" href=""><img :src="item.src" alt=""></a>
-                <a class="linkbar" href="">{{item.name}}</a>
-                </router-link>
+            <li class="icons-item" v-for="(item,index) in items" :class="getClass(index)">
+                <a class="imgebar" @click="toList(index)"><img :src="item.src" alt=""></a>
+                <a class="linkbar">{{item.name}}</a>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+    import Bus from '../components/common/bus.js'
     export default {
         name: "one-floor",
         data(){
@@ -19,19 +18,28 @@
                 items:[
                     {
                         src:"http://img10.static.yhbimg.com/yhb-img01/2017/02/03/09/01155cce42c22f29c305d5767dd73fe983.png?imageView2/2/w/98/h/98/q/60",
-                        name:"新品到着"
+                        bgimg:"http://img12.static.yhbimg.com/yhb-img01/2016/02/29/07/025d532df4d76507c663157d7f34927324.jpg?imageView2/2/w/640/h/240/q/60",
+                        name:"新品到着",
+                        tabs:['6月25号','人气单品','本周上新','销量'],
+                        hrefs:"/lifestyle-new?from=index&query=new-goods"
                     },
                     {
                         src:"http://img11.static.yhbimg.com/yhb-img01/2017/05/08/11/01fc18512be1c0103f74712eec27182a9b.png?imageView2/2/w/98/h/98/q/60",
-                        name:"热销TOP"
+                        bgimg:"http://img10.static.yhbimg.com/yhb-img01/2016/08/29/11/0106011b3311204672050f2203055d25f6.jpg?imageView2/2/w/640/h/240/q/90",
+                        name:"热销TOP",
+                        tabs:['TOP100','美妆个护','玩具礼品','厨具餐具','影音娱乐','手机/配件'],
+                        hrefs:"/list/?from=index&query=top-sale"
+
                     },
                     {
                         src:"http://img11.static.yhbimg.com/yhb-img01/2017/03/02/09/018c7c0e43d281755461e41ef07e5de089.png?imageView2/2/w/98/h/98/q/60",
-                        name:"领劵中心"
+                        name:"领劵中心",
+                        hrefs:"领券中心"
                     },
                     {
                         src:"http://img11.static.yhbimg.com/yhb-img01/2017/02/03/09/0189bc583b9c0fc55a983116b3e1c460dc.png?imageView2/2/w/98/h/98/q/60",
-                        name:"全部分类"
+                        name:"全部分类",
+                        hrefs:"/cate"
                     },
                     {
                         src:"http://img10.static.yhbimg.com/yhb-img01/2017/02/03/09/014647f5d597273cca382e6a2cc8cdad08.png?imageView2/2/w/98/h/98/q/60",
@@ -49,9 +57,19 @@
                         src:"http://img10.static.yhbimg.com/yhb-img01/2017/02/03/09/01f8ff4c9195b7f7f4774e911a6ea7936b.png?imageView2/2/w/98/h/98/q/60",
                         name:"折扣专区"
                     }
-                ]
+                ],
+                money:'a'
             }
 
+        },
+        methods: {
+            getClass(_index){
+                return "item"+_index;
+            },
+            toList(_index){
+                Bus.$emit("sendDatas",this.items[_index]);
+                this.$router.push(this.items[_index].hrefs);
+            }
         }
     }
 </script>

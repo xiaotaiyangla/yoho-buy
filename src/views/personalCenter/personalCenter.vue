@@ -96,7 +96,6 @@
     }
     .bgtop{
         box-sizing: border-box;
-        margin-top:2.625rem;
         width: 100%;
         padding: 1.15rem 0 1.45rem;
         height: 5.1rem;

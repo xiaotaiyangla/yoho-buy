@@ -77,7 +77,7 @@
             width: 2.625rem;
             height: 2.625rem;
             line-height: 2.625rem;
-            font-size: 27px;
+            font-size: 24px;
             font-weight: bold;
             text-align: center;
             vertical-align: baseline;

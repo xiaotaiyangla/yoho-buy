@@ -26,12 +26,12 @@
                         <p class="aboutprice">
                             <span class="cuprice" :class="{'cuprice2':item.goodsPrice.oldprice}">{{item.goodsPrice.currentPrice | price}}</span>
                             <span v-if="item.goodsPrice.oldprice" class="oldprice">{{item.goodsPrice.oldprice | price}}</span>
-                            <span class="formore" @click="isSimilar = !isSimilar">
+                            <span class="formore" @click="showSimilar(item)">
                                 <i class="iconfont icon-htmal5icon26"></i>
                             </span>
                         </p>
                     </div>
-                    <div class="cover" v-show="isSimilar">
+                    <div class="cover" v-show="item.isSimilar">
                         <div class="similar">找相似</div>
                     </div>
                     <div class="newpro" v-if="item.isNewsale">NEW</div>
@@ -54,7 +54,6 @@
         data(){
             return {
                 data:{},
-                isSimilar:false,
                 myPrimaryClass:'',
                 mySecondclass:''
             }
@@ -72,7 +71,6 @@
                 secondclass:this.mySecondclass
             }).then(({data})=>{
                 this.data = data;
-                console.log(this.data);
             });
         },
         mounted(){
@@ -98,6 +96,13 @@
         methods:{
             getClass(_id){
                 return "id"+_id;
+            },
+            showSimilar(item){
+                if(item.isSimilar == undefined){
+                    this.$set(item,"isSimilar",true);
+                }else{
+                    item.isSimilar = !item.isSimilar;
+                }
             }
         },
         filters:{
@@ -110,11 +115,14 @@
 
 <style lang="less" scoped>
     @import "../components/common/list/list";
-    .top-btn{
-        margin-top:2.6rem;
-    }
     .list-wrap{
-        top:4.5rem;
+        top:4.5rem; 
     }
+    .top-btn .arrow .i-block1{
+            top: -3px;
+        }
+        .top-btn .arrow .i-block{
+            top: 4px;
+        }
 
 </style>
