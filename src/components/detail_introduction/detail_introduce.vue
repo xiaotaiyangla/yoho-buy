@@ -1,21 +1,16 @@
 <template>
-    <div>
+    <div class="wrap">
         <!-- 第一层 -->
         <div>
             <!-- 顶部 -->
             <header>
             </header>
-            <!-- 轮播图 单张 -->
-            <!-- <div class="single-photo">
-                <img src="" alt="">
-            </div> -->
-            <!-- 轮播图 多张-->
-            <!-- <swiperVue></swiperVue> -->
+            <!-- 轮播图 -->
             <div class="container">
                 <swiper class="swiper" :options="swiperOption"  ref="mySwiper">
                     <!-- 这部分放你要渲染的那些内容 -->  
                     <swiper-slide class="swiper-slide" data-swiper-autoplay="3000">
-                        <a href="">
+                        <a @click="shadowchange()">
                             <img v-if="goodslist.goodsImgs"  v-for="item in goodslist.goodsImgs"    :src="item" alt=""   :key="goodslist.id">
                         </a>
                     </swiper-slide>
@@ -115,10 +110,10 @@
         <div class="enter-store-wrap">
             <div class="enter-store">
                 <a href="###">
-                    <img  class="store-pic"  src="" alt="">
+                    <img  class="store-pic"  src="https://img10.static.yhbimg.com/yhb-img01/2018/05/10/11/01b0f2d8059c30f31c753505ba94fa4549.jpg?imageMogr2/thumbnail/47x47/extent/47x47/background/d2hpdGU=/position/center/quality/80" alt="">
                 </a>
                 <a href="###" class="name">
-                    美迪惠尔
+                    HOT TOYS
                 </a>
                 <a href="###" class="store-link">
                     进入店铺
@@ -132,7 +127,7 @@
             <!-- 头 -->
                 <h2>
                         商品详情
-                        <span>product info</span>
+                        <span>PRODUCT INFO</span>
                 </h2>
                 <!--商品详情  -->
                 <div class="detail-table">
@@ -141,7 +136,7 @@
                     <span class="gender" v-if="goodslist.goodsInfo">性别：{{goodslist.goodsInfo.attr[2]}}</span> 
                 </div>
                 <div class="element">
-                    <span   v-if="goodslist.goodsInfo">{{goodslist.goodsInfo.text}}</span>
+                    <span   v-if="goodslist.goodsInfo"  >{{goodslist.goodsInfo.text}}</span>
                </div>
             </div>
         </div>
@@ -168,7 +163,7 @@
             <!-- 头 -->
                 <h2 >
                         商品详情
-                        <span>details</span>
+                        <span>DETAILS</span>
                 </h2>
                 <!--商品详情  -->
                 <div class="detail">
@@ -238,14 +233,11 @@
         </div>
         <!-- 第七层 登录注册返回顶部 -->
         <!-- 其他：点击轮播图页面后产品展示 -->
-        <div>
-            <div>
-
-            </div>
+        <div class="shadows" v-if="shadow">
+            <img v-for="item in goodslist.goodsImgs"    :src="item"  alt="" @click="shadowchange()" style="width:18.8rem">
         </div>
         <!-- 其他：返回顶部按钮 -->
-        <div class="return-top">
-            
+        <div class="return-top" v-if="{returnTop:handleScroll}" ref="back" @click="backTop()">
         </div>
 
 
@@ -295,7 +287,9 @@ export default {
       },
       goodslist: {},
       swiperPagination: false,
-      commentPage: true
+      commentPage: true,
+      returnTop: false,
+      shadow: false
     };
   },
   components: {
@@ -321,6 +315,9 @@ export default {
         console.log(error);
       });
   },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
   computed: {
     showimg() {
       if (this.goodslist.goodsImgs.length > 1) {
@@ -332,11 +329,35 @@ export default {
       if (this.goodslist.comments) {
         return this.commentPage == false;
       }
+    },
+    //???
+    handleScroll() {
+      if (document.documentElement.scrollTop + document.body.scrollTop > 1000) {
+        this.returnTop = true;
+        console.log(this.returnTop);
+      } else {
+        this.returnTop = false;
+      }
     }
   },
+
   methods: {
     active() {
       this.$refs.navRight.style.color = "black";
+    },
+    backTop() {
+      let back = setInterval(() => {
+        if (document.body.scrollTop || document.documentElement.scrollTop) {
+          document.body.scrollTop -= 100;
+          document.documentElement.scrollTop -= 100;
+        } else {
+          clearInterval(back);
+        }
+      });
+    },
+    shadowchange() {
+      this.shadow = !this.shadow;
+      console.log(this.shadow);
     }
   }
 };
@@ -345,6 +366,9 @@ export default {
 <style lang="less" scoped>
 @import "../../assets/css/mixin";
 // 第一层
+.wrap {
+  background: #f0f0f0;
+}
 .goods-name {
   box-sizing: border-box;
   padding: 0.5rem 0.7rem;
@@ -530,12 +554,26 @@ export default {
       .question-detail {
         font-size: 0.6rem;
         color: #444;
+        i {
+          background: url(./question.png) no-repeat;
+          width: 1rem;
+          height: 1rem;
+          display: inline-block;
+          vertical-align: middle;
+        }
       }
       .answer-detail {
         font-size: 0.6rem;
         line-height: 0.9rem;
         color: #b0b0b0;
         margin-top: 0.35rem;
+        i {
+          background: url(./answer.png) no-repeat;
+          width: 1rem;
+          height: 1rem;
+          display: inline-block;
+          vertical-align: middle;
+        }
       }
     }
   }
@@ -553,6 +591,14 @@ export default {
   span {
     color: #b0b0b0;
   }
+  i {
+    background: url(./right-arrow.png) no-repeat;
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -0.4rem;
+  }
 }
 //第三层
 .enter-store-wrap {
@@ -568,6 +614,7 @@ export default {
       width: auto;
       height: 1.7rem;
       vertical-align: middle;
+      margin-left: -1.9rem;
     }
     .name {
       color: #444;
@@ -581,6 +628,14 @@ export default {
       color: #b0b0b0;
       text-align: right;
       font-size: 0.7rem;
+      i {
+        background: url(./right-arrow.png) no-repeat;
+        width: 1rem;
+        height: 1rem;
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -0.4rem;
+      }
     }
   }
 }
@@ -655,6 +710,7 @@ export default {
     color: #444;
     font-size: 0.6rem;
     margin-bottom: 0.5rem;
+    line-height: 0.8rem;
   }
 }
 //第六层
@@ -700,6 +756,7 @@ export default {
   height: 16.7rem;
   max-height: 16.7rem;
   overflow: hidden;
+  background: #ffffff;
   // padding-left: 0;
 
   .swiper {
@@ -748,6 +805,30 @@ export default {
         background: #ffffff;
       }
     }
+  }
+}
+//轮播图蒙版层
+.shadows {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  background-color: #000;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  border: 0;
+  z-index: 999;
+  display: flex;
+  -ms-align-items: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  image {
+    widows: 100%;
+    height: 500px;
+    margin-top: 83.5px;
   }
 }
 </style>

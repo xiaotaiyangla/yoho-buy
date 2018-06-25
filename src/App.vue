@@ -4,10 +4,14 @@
   </div>
 </template>
 <script>
-    import detailIntroduce from "./components/detail_introduction/detail_introduce";
+    import DetailIntroduce from "./components/detail_introduction/detail_introduce";
+    import LifestyleBrands from "./components/lifestyle_brands/lifestyle_brands";
+    import Cart  from  "./components/cart/cart"
     export default {
         components: {
-            detailIntroduce
+            DetailIntroduce,
+            LifestyleBrands,
+            Cart,
         }
     };
 </script>
