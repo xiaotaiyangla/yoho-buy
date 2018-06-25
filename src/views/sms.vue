@@ -51,7 +51,6 @@
                 typepwd:"password",
                 forgetBox:false,
                 selected:'+86'
-
             }
         },
         methods:{

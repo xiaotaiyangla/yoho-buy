@@ -1,13 +1,8 @@
-<template>
-    <!--"新品到着"页面-->
-    <div class="newpage">
-        <title-top :title='indexData.name'></title-top>
-        <div class="dzimg">
-            <ul class="new-img">
+ <ul class="new-img">
                 <li class="new-slide">
                     <a href="">
-                        <img :src="piture.src" alt="">
-                    </a>
+                        < img :src="piture.src" alt="">
+                    </a >
                 </li>
             </ul>
         </div>
@@ -24,16 +19,16 @@
         <div class="list-wrap">
             <ul class="list-con">
                 <li v-for="item in data" :class="getClass(item.goodsId)">
-                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    < img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
                     <div class="desdetail">
-                        <p class="prosname">{{item.goodsName}}</p>
+                        <p class="prosname">{{item.goodsName}}</p >
                         <p class="aboutprice">
                             <span class="cuprice" :class="{'cuprice2':item.goodsPrice.oldprice}">{{item.goodsPrice.currentPrice | price}}</span>
                             <span v-if="item.goodsPrice.oldprice" class="oldprice">{{item.goodsPrice.oldprice | price}}</span>
                             <span class="formore" @click="showSimilar(item)">
                                 <i class="iconfont icon-htmal5icon26"></i>
                             </span>
-                        </p>
+                        </p >
                     </div>
                     <div class="cover" v-show="item.isSimilar">
                         <div class="similar">找相似</div>
