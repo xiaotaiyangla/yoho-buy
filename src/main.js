@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import "./assets/css/style.css"
 
 //导入swiper
 require ('./assets/swiper/swiper-3.4.2.min.css')
@@ -10,7 +9,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 
 //导入小图标的css文件
-// require('./assets/font/iconfont.css')
+require('./assets/font/iconfont.css')
 
 import axios from 'axios'
 import $ from 'jquery'

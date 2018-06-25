@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-// @import "../../assets/css/style.css";
+@import "../../assets/css/style.css";
 // 购物车头部
 header {
   height: 2.625rem;
