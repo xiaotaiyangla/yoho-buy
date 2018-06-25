@@ -3,7 +3,7 @@
         <li>
             <i class="iconfont icon-tubiao01"></i>
             <router-link to="/index">
-                <p class="tab-name active">首页</p>
+                <span class="tab-name active">首页</span>
             </router-link>
         </li>
 
@@ -24,7 +24,7 @@
         <li>
             <i class="iconfont icon-wode-weixuanzhong hfcolor"></i>
             <router-link to="/personalCenter">
-            <p class="tab-name">我的</p>
+            <span class="tab-name">我的</span>
             </router-link>
         </li>
 
@@ -40,20 +40,18 @@
 
 <style lang="less" scoped>
     .footer-tab {
-        overflow: hidden;
         position: fixed;
         bottom: 0;
-        left:0;
-        display: flex;
+        padding-top: 0.5rem;
         width: 100%;
         height: 2.1rem;
-        border-top: 1px solid rgb(176,176,176);
-        z-index: 3;
+        border-top: 0.5px solid rgb(176,176,176);
         background: #fff;
-        padding-top: 0.5rem;
+        z-index: 3;
+        display: flex;
         li{
-            text-align: center;
             flex:1;
+            text-align: center;
             .hfcolor {
                 color:rgb(208,208,208);
             }
@@ -61,13 +59,13 @@
                 display: inline-block;
                 font-size: 1.1rem;
                 line-height: 1.1;
-
             }
             .tab-name {
+                display: block;
                 margin-top: 0.22rem;
-                font-size: 12px;
-                line-height: 1;
-                transform:scale(0.9);
+                font-size: 0.6rem;
+                line-height: 0.6rem;
+                /*transform:scale(0.9);*/
                 color: rgb(176, 176, 176);
             }
             .active {
