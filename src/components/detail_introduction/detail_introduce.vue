@@ -245,11 +245,11 @@
        
     </div>
 </template>
-<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 // import swiperVue from '../common/lunbo.vue'
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-// import footerVue from "../common/footer.vue";
+import footerVue from "../common/footer.vue";
 export default {
   name: "detail_introduce",
   data() {
@@ -293,7 +293,7 @@ export default {
     };
   },
   components: {
-    // footerVue,
+    footerVue,
     // swiperVue,
     swiper,
     swiperSlide
@@ -826,7 +826,7 @@ export default {
   -webkit-align-items: center;
   align-items: center;
   image {
-    width: 100%;
+    widows: 100%;
     height: 500px;
     margin-top: 83.5px;
   }
