@@ -249,7 +249,7 @@
 <script>
 // import swiperVue from '../common/lunbo.vue'
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-import footerVue from "../common/footer.vue";
+// import footerVue from "../common/footer.vue";
 export default {
   name: "detail_introduce",
   data() {
@@ -293,7 +293,7 @@ export default {
     };
   },
   components: {
-    footerVue,
+    // footerVue,
     // swiperVue,
     swiper,
     swiperSlide
