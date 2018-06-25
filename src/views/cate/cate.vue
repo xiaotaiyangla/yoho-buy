@@ -20,22 +20,23 @@
             <div class="rwrap" ref="rcont">
                 <div>
                     <ul v-for="(sub,index) in data" v-if="forclass==getClass(index)">
-                        <li class="item-name" v-for="name in sub.secondClass">{{name}}</li>
+                        <li class="item-name" v-for="name in sub.secondClass" @click="toList(name)">{{name}}</li>
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
+    import Bus from '../../components/common/bus'
     export default {
         name: "cate",
         data(){
             return{
                 data:[],
-                forclass:"ul0"
+                forclass:"ul0",
+                theQuery:''
             }
 
         },
@@ -49,9 +50,33 @@
                 $("#ul"+_index).css("background-color","#fff");
                 //切换下级内容
                 this.forclass = "ul"+_index;
+                //判断是否有下级
+                if(item.secondClass == ''){
+                    Bus.$emit("primaryClass",item.primaryClass);
+                    this.theQuery = item.primaryClass;
+                    this.$router.push({
+                        path:"/list",
+                        query: {
+                            from: "cate",
+                            query: item.primaryClass
+                        }
+                    });
+                }
             },
             getClass(index1){
                 return "ul"+index1;
+            },
+            toList(_name){
+                Bus.$emit("secondclass",_name);
+                this.theQuery = _name;
+                console.log(this.theQuery);
+                this.$router.push({
+                    path:"/list",
+                    query: {
+                        from: "cate",
+                        query: _name
+                    }
+                })
             }
         },
         created(){
@@ -77,6 +102,9 @@
         ul{
             height: 100%;
             background-color: #F7F8F7;
+            li:first-child{
+                background-color: #fff;
+            }
         }
     }
     li{
@@ -137,7 +165,6 @@
                 width: 100%;
                 padding-left: 2rem;
                 border-radius: 1.5rem;
-
             }
         }
     }

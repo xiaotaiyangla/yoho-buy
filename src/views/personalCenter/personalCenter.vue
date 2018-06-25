@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <title-top></title-top>
+        <title-top title="个人中心"></title-top>
         <div class="bgtop">
             <div class="login-btn">
                 <router-link to="/signIn">登录 /</router-link>
