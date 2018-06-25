@@ -3,7 +3,7 @@
         <title-top title="搜索"></title-top>
         <div class="searchbar">
             <div class="inputwrap">
-                <i class="iconfont icon-suosou"></i>
+                <i class="iconfont icon-sousuo"></i>
                 <input type="text" v-model="searchText">
                 <span class="s-text" @click="toList">搜索</span>
             </div>
@@ -19,7 +19,7 @@
                 <div class="recent">
                     <p>
                         <span class="stitle">最近搜搜</span>
-                        <i @click="isDelBox = !isDelBox" class="iconfont icon-shanchu"></i>
+                        <i @click="isDelBox = !isDelBox" class="iconfont icon-unie639"></i>
                     </p>
                     <ul v-show="isDel">
                         <li v-for="words in cookieValue" v-if="cookieValue !=''">{{words}}</li>
@@ -108,14 +108,12 @@
 </script>
 
 <style lang="less" scoped>
-    @import "../cate/iconfont.css";
-    @import "iconfont.css";
+    @import "./iconfont.css";
     .searchbar{
         width: 100%;
         padding: .35rem .55rem;
         background: #f8f8f8;
         height: 2.1rem;
-        margin-top: 2.625rem;
         box-sizing: border-box;
     .inputwrap{
         position: relative;
@@ -206,14 +204,10 @@
                     font-size: .7rem;
                     vertical-align: bottom;
                 }
-                .icon-shanchu{
+                .icon-unie639{
                     position: absolute;
                     bottom: 0;
                     right: 0;
-                    font-size: .9rem;
-                    width: .6rem;
-                    height: .65rem;
-                    display: inline-block;
                     color: #b0b0b0;
                 }
             }

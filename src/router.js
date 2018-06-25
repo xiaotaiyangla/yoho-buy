@@ -152,7 +152,7 @@ export default new Router({
         name:'cate',
         component:Cate
       },
-      //分类页面跳到的搜索页面
+      //各种页面跳到的list页面
       {
         path:'/list',
         component:ListToCate
