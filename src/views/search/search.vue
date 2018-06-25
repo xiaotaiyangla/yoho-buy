@@ -1,6 +1,6 @@
 <template>
     <div>
-        <title-top></title-top>
+        <title-top title="搜索"></title-top>
         <div class="searchbar">
             <div class="inputwrap">
                 <i class="iconfont icon-suosou"></i>
@@ -8,21 +8,21 @@
                 <span class="s-text" @click="toList">搜索</span>
             </div>
         </div>
-        <div class="hotsearch" ref="hsearch">
+        <div class="hotsearch" ref="hsearch" v-if="searching">
             <ul>
                 <li>热搜</li>
                 <li v-for="item in hotsearch" v-if="item != ''">{{item}}</li>
             </ul>
         </div>
-        <div class="des">
-            <div class="wrap">
+        <div class="des" >
+            <div class="wrap" v-if="searching">
                 <div class="recent">
                     <p>
                         <span class="stitle">最近搜搜</span>
                         <i @click="isDelBox = !isDelBox" class="iconfont icon-shanchu"></i>
                     </p>
                     <ul v-show="isDel">
-                        <li v-for="words in cookieValue">{{words}}</li>
+                        <li v-for="words in cookieValue" v-if="cookieValue !=''">{{words}}</li>
                     </ul>
                 </div>
                 <div class="guss">
@@ -34,6 +34,7 @@
                     </ul>
                 </div>
             </div>
+            <router-view :query="searchText"></router-view>
         </div>
         <div class="delete" v-show="isDelBox">
             <div class="cover" @click="isDelBox = !isDelBox"></div>
@@ -47,7 +48,6 @@
                 </div>
             </div>
         </div>
-        {{cookieValue}}
     </div>
 </template>
 
@@ -67,7 +67,8 @@
                 isDel: true,
                 searchText:'玩具',
                 data:{},
-                cookieValue:[]
+                cookieValue:[],
+                searching:true
             }
         },
         methods:{
@@ -77,9 +78,14 @@
             },
             toList(){
                 document.cookie = "text"+Math.floor(Math.random()*(20-1)+1)+"="+this.searchText;
-                this.$http.get('/api/search',{keyword:this.searchText}).then((data)=>{
-                    this.data = data;
-                })
+                this.searching = !this.searching;
+                this.$router.push({
+                    name:"list",
+                    query:{
+                        from:"search",
+                        query:this.searchText
+                    }
+                });
             }
         },
         mounted(){
@@ -175,19 +181,14 @@
         line-height: 1.55rem;
         padding: 0 .5rem;
         color: #000;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         border-radius: .2rem;
         font-size: .7rem;
         margin-right: .375rem;
     }
     .des{
         width: 100%;
-        position:absolute;
         background: #EFF0EF;
-        padding-top: .75rem;
-        top: 7.575rem;
-        bottom:5.75rem;
+        bottom:0;
         div.wrap{
             width: 100%;
             height: 100%;

@@ -1,0 +1,66 @@
+//mixin是函数预处理方式，可以定义css函数
+.border-bottom(@color){
+    /* 类似于js的函数 */
+    position: relative;
+    &:after{
+      display: block;
+      content: "";
+      width: 100%;
+      height: 1px ;
+      position: absolute;
+      bottom: 0;
+      background-color: @color;
+      &:last-child{
+          width:0;
+      }
+    }
+    @media  only   screen  and (-webkit-min-device-pixel-ratio:2.0){
+        &::after{
+             transform: scaleY(0.5);
+        }
+    }
+       
+    @media  only   screen  and (-webkit-min-device-pixel-ratio:3.0){
+        &::after{
+            transform: scaleY(0.333);
+       }
+    }   
+}
+.border-top(@color){
+    /* 类似于js的函数 */
+    position: relative;
+    &:after{
+      display: block;
+      content: "";
+      width: 100%;
+      height: 1px ;
+      position: absolute;
+      top:0;
+      background-color: @color;
+      &:last-child{
+          width:0;
+      }
+    }
+    @media  only   screen  and (-webkit-min-device-pixel-ratio:2.0){
+        &::after{
+             transform: scaleY(0.5);
+        }
+    }
+       
+    @media  only   screen  and (-webkit-min-device-pixel-ratio:3.0){
+        &::after{
+            transform: scaleY(0.333);
+       }
+    }   
+}
+.bg-img(@url){
+    background-image:url("@{url}@2x.png");
+    @media  only   screen  and (-webkit-min-device-pixel-ratio:3.0){
+        background-image:url("@{url}@3x.png");    
+    }
+}
+.border-none(){
+    &::after{
+        display: none;
+    }
+}

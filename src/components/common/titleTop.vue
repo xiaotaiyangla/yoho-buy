@@ -2,7 +2,7 @@
     <div>
         <div class="title-top">
             <span class="iconfont icon-back back" @click="goToLast"></span>
-            <h2 :class="v_path">{{title}}</h2>
+            <h2>{{title}}</h2>
             <span class="iconfont icon-viewlist iconviewlist" @click="isShow = !isShow"></span>
         </div>
         <div class="viewlist" v-show="isShow">
@@ -36,30 +36,14 @@
 <script>
     export default {
         name: "titleTop",
+        props:{
+          title:String
+        },
         data(){
           return {
-              title:'',
               path:this.$route.path,
               isShow:false
           }
-        },
-        computed: {
-            //根据路由path来填写top的文字
-            v_path() {
-                if (this.path == '/personalCenter') {
-                    this.title = "个人中心";
-                }else if(this.path == '/index'){
-                    this.title = "index";
-                }else if(this.path == '/search'){
-                    this.title = "搜索";
-                }else if(this.path == '/lifestyle-new'){//待修改
-                    this.title = '新品到着'
-                }else if(this.path == '/stock'){
-                    this.title = "领劵中心"
-                }else if(this.path == '/hotbrand'){
-                    this.title = "分类"
-                }
-            }
         },
         methods:{
             goToLast(){
