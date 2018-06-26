@@ -96,7 +96,6 @@
     }
     .bgtop{
         box-sizing: border-box;
-        margin-top:2.625rem;
         width: 100%;
         padding: 1.15rem 0 1.45rem;
         height: 5.1rem;
@@ -129,6 +128,8 @@
             height: 2rem;
             line-height:2rem;
             .icon-jiantou{
+                height: 2rem;
+                line-height:2rem;
                 float: right;
             }
             span{
@@ -183,6 +184,8 @@
                 float: left;
                 border-bottom:1px solid #e0e0e0;
                 .icon-jiantou{
+                    height: 2.2rem;
+                    line-height: 2.2rem;
                     margin-right: .75rem;
                     float: right;
                 }

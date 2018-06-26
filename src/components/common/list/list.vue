@@ -143,36 +143,4 @@
         }
 
     }
-    .cartwrap{
-        position: fixed;
-        right: 1rem;
-        bottom: 3.5rem;
-        z-index: 999;
-        .cart-count{
-            position: absolute;
-            top:.3rem;
-            right:.3rem;
-            display: inline-block;
-            width: .75rem;
-            height: .75rem;
-            background-color: #eb0313;
-            border-radius: 50%;
-            color: #fff;
-            text-align: center;
-            font-size: .5rem;
-            line-height: .75rem;
-        }
-        .cart-logo{
-            width: 2.578rem;
-            height: 2.578rem;
-            background-color: rgba(0,0,0,.3);
-            border-radius: 50%;
-            text-align: center;
-            .icon-ai-cart{
-                color:#fff;
-                font-size: 1rem;
-                line-height: 2.578rem;
-            }
-        }
-    }
 </style>

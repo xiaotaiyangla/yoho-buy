@@ -1,10 +1,11 @@
 <template>
     <div class="outest-container">
-        <!--<div class="top">首页-->
-            <!--<router-link to="/search" style="float: right;">搜索</router-link>-->
-        <!--</div>-->
-        <title-top></title-top>
-
+        <div class="top">
+            <img src="../components/common/logo.jpg" alt="包包杂货店" class="logopng">
+            <a href="/search">
+                <i class="iconfont icon-sousuo"></i>
+            </a>
+        </div>
         <!--轮播图-->
         <lunbo></lunbo>
 
@@ -43,20 +44,39 @@
             </div>
             <popular-item></popular-item>
         </div>
-
+        <!-- list -->
+        <ul class="top-btn">
+            <li @click="one">新品到着</li>
+            <li @click="two">人气单品</li>
+        </ul>
+        <div class="list-wrap">
+            <ul class="list-con">
+                <li v-for="item in data" :class="getClass(item.goodsId)">
+                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    <div class="desdetail">
+                        <p class="prosname">{{item.goodsName}}</p>
+                        <p class="aboutprice">
+                            <span class="cuprice" :class="{'cuprice2':item.goodsPrice.oldprice}">{{item.goodsPrice.currentPrice | price}}</span>
+                            <span v-if="item.goodsPrice.oldprice" class="oldprice">{{item.goodsPrice.oldprice | price}}</span>
+                            <span class="formore" @click="showSimilar(item)">
+                                <i class="iconfont icon-htmal5icon26"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="cover" v-show="item.isSimilar">
+                        <div class="similar">找相似</div>
+                    </div>
+                    <div class="newpro" v-if="item.isNewsale">NEW</div>
+                    <div class="saleout" v-if="item.isPresale">即将售罄</div>
+                </li>
+            </ul>
+        </div>
         <footer-two></footer-two>
-
         <footer-home></footer-home>
-
-        <!--以下为测试-->
-
-        <!--<footer-cart></footer-cart>-->
-        <!--<v-footer></v-footer>-->
     </div>
 </template>
 
 <script>
-    import TitleTop from "../components/common/titleTop"
     import Lunbo from "../components/common/lunbo";
     import OneFloor from "./OneFloor"
     import TwoFloor from "./twoFloor"
@@ -64,16 +84,9 @@
     import PopularItem from "./popularItem" //人气单品
     import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
     import FooterHome from '../components/common/footerHome' //首页底部
-
-    //以下为测试
-    //import FooterCart from "../components/common/footerCart" //购物车底部
-    // import VFooter from '../components/common/footer' //基础框架
-
-
     export default {
         name: "index",
         components:{
-            TitleTop,
             Lunbo,
             OneFloor,
             TwoFloor,
@@ -81,14 +94,73 @@
             PopularItem,
             FooterTwo,
             FooterHome,
-
-            //FooterCart
-            //VFooter,
+        },
+        data(){
+            return {
+                data:{}
+            }
+        },
+        created(){
+            this.$http.get('/api/goods/new-goods').then(({data})=>{
+                this.data = data;
+            });
+        },
+        mounted(){
+            $('.top-btn li').click(function(){
+                $(this).css("color","#000").siblings().css("color","#999");
+            });
+        },
+        methods:{
+            getClass(_id){
+                return "id"+_id;
+            },
+            showSimilar(item){
+                if(item.isSimilar == undefined){
+                    this.$set(item,"isSimilar",true);
+                }else{
+                    item.isSimilar = !item.isSimilar;
+                }
+            },
+            one(){
+                this.$http.get('/api/goods/new-goods').then(({data})=>{
+                this.data = data;
+            });
+            },
+            two(){
+                this.$http.get('/api/goods/top-sale').then(({data})=>{
+                this.data = data;
+            });
+            }
+        },
+        filters:{
+            price(price){
+                return "¥"+price;
+            }
         }
     }
 </script>
 
 <style lang="less" scoped>
+@import './search/iconfont.css';
+@import '../components/common/list/list.less';
+.list-wrap{
+    position: relative;
+    top:0;
+    left:0;
+}
+.top-btn{
+    border-top:1px solid #CBCCCB;
+    margin-top:0.7rem;
+    width:100%;
+    height: 2.5rem;
+    line-height:2.5rem;
+    padding: 5px 0;
+    box-sizing: border-box;
+    li:first-child{
+        border-right:1px solid #CBCCCB;
+        color:#000;
+    }
+}
     *{
         margin:0;
         padding:0;
@@ -99,7 +171,30 @@
     }
     .top{
         width: 100%;
-        height: 2.25rem;
+        text-align:center;
+        height: 2.5458rem;
+        line-height: 2.5458rem;
+        background-color:#4f4138;
+        background-image: linear-gradient(#323232,#414141);
+        color:#fff;
+        .logopng{
+            float:left;
+            width: 1rem;
+            height:100%;
+        }
+        a{
+            position:absolute;
+            right:0;
+            top:0;
+           .icon-sousuo{
+               display: inline-block;
+               color:#fff;
+                width: 2.6rem;
+                font-size:18px;
+                font-weight: 700;
+           }
+
+        }
     }
     .floorTitle {
         position: relative;

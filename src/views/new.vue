@@ -1,98 +1,181 @@
 <template>
     <!--"新品到着"页面-->
     <div class="newpage">
-        <title-top></title-top>
-        <div class="dzimg">
-        <ul class="new-img">
-            <li class="new-slide">
-                <a href="">
-                    <img :src="piture.src" alt="">
-                </a>
-            </li>
-        </ul>
-        </div>
-        <!--tab切换-->
-        <ul class="list-nav">
-            <li class="navnav"
-                v-for="(item,index) in tabs"
-                :class="{active:index == num}"
-                @click="tab(index)">{{item}}
-            </li>
-        </ul>
-        <div class="tabCon">
-            <div class="tabConCon"
-                 v-for='(itemCon,index) in tabContents'
-                 v-show="index == num">
-                {{itemCon}}
-                <!--<ul>-->
-                    <!--&lt;!&ndash;列表中的一项&ndash;&gt;-->
-                    <!--<li class="good-info">-->
-                        <!--&lt;!&ndash;图片上的留白&ndash;&gt;-->
-                        <!--<div class="tag-container"></div>-->
-                        <!--&lt;!&ndash;图片&ndash;&gt;-->
-                        <!--<div class="good-detail-img">-->
-                            <!--<a href=""><img :src="res.goodsImgs" alt=""></a>-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash;图片的名称，价格&ndash;&gt;-->
-                        <!--<div class="good-detail-text">-->
-                            <!--&lt;!&ndash;图片名&ndash;&gt;-->
-                            <!--<div class="name"><a href="">{{res.goodsName}}</a></div>-->
-                            <!--&lt;!&ndash;图片价格&ndash;&gt;-->
-                            <!--<div class="price">-->
-                                <!--<span class="sale-price">{{res.goodsPrice}}</span>-->
-                                <!--<span class="market-price"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</li>-->
-                <!--</ul>-->
-
+        <div class="cartwrap">
+            <div class="cart-logo">
+                <i class="iconfont icon-ai-cart"></i>
             </div>
+            <span class="cart-count">0</span>
         </div>
-        <router-view></router-view>
-        <!--固定购物车样式-->
-        <div class="suspend-cart">
-            <a href="">
-                <span class="iconfont icon-gouwuche_weixuanzhong"></span>
-            </a>
-            <span class="cart-count">1</span>
+        <title-top :title='msg.name'></title-top>
+        <div class="dzimg" v-if="msg.bgimg">
+            <ul class="new-img">
+                <li class="new-slide">
+                    <a href="">
+                        <img :src="msg.bgimg" :alt="msg.name">
+                    </a >
+                </li>
+            </ul>
         </div>
+        <!--special-->
+        <div class="only-forsale" v-if="msg.tag">
+            <p>最新降价</p>
+        </div>
+        <!-- list-->
+        <ul class="top-btn" v-if="msg.tabs == void 0">
+            <li>默认
+                <i class="iconfont icon-sanjiao_xia"></i>
+            </li>
+            <li>新品</li>
+            <li>人气</li>
+            <li class="tab-price">价格
+                <span class="arrow">
+                    <i class="iconfont icon-shangjiantou i-block1"></i>
+                    <i class="iconfont icon-xiajiantou i-block"></i>
+                </span>
+            </li>
+            <li>筛选
+                <i class="iconfont icon-sanjiao_xia"></i>
+            </li>
+        </ul>
+        <ul class="top-btn" v-if="msg.tabs">
+            <li v-for="tab in msg.tabs">{{tab}}</li>
+            <li>筛选
+                <i class="iconfont icon-sanjiao_xia"></i>
+            </li>
+        </ul>
+        <div class="list-wrap">
+            <ul class="list-con">
+                <li v-for="item in data" :class="getClass(item.goodsId)">
+                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    <div class="desdetail">
+                        <p class="prosname">{{item.goodsName}}</p >
+                        <p class="aboutprice">
+                            <span class="cuprice" :class="{'cuprice2':item.goodsPrice.oldprice}">{{item.goodsPrice.currentPrice | price}}</span>
+                            <span v-if="item.goodsPrice.oldprice" class="oldprice">{{item.goodsPrice.oldprice | price}}</span>
+                            <span class="formore" @click="showSimilar(item)">
+                                <i class="iconfont icon-htmal5icon26"></i>
+                            </span>
+                        </p >
+                    </div>
+                    <div class="cover" v-show="item.isSimilar">
+                        <div class="similar">找相似</div>
+                    </div>
+                    <div class="newpro" v-if="item.isNewsale">NEW</div>
+                    <div class="saleout" v-if="item.isPresale">即将售罄</div>
+                </li>
+            </ul>
+        </div>
+        <!-- 2个底部 -->
+        <footer-two></footer-two>
+        <footer-home></footer-home>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+    import Bus from '../components/common/bus.js'
     import TitleTop from "../components/common/titleTop"
+    import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
+    import FooterHome from '../components/common/footerHome' //首页底部
     export default {
         name: "new",
+        components:{
+            TitleTop,FooterTwo,FooterHome
+        },
         data(){
             return {
                 piture:{
                     src:"http://img12.static.yhbimg.com/yhb-img01/2016/02/29/07/025d532df4d76507c663157d7f34927324.jpg?imageView2/2/w/640/h/240/q/60"
                 },
-                tabs:["6月22号","本周上新","销量","筛选"],
-                tabContents:["1","2","3","4"],
-                num:0
+                data:{},
+                indexData:{},
             }
 
         },
-        methods:{
-          tab(index){
-              this.num = index;
-              this.$http.get('./api/goods/new-goods')
-                  .then(function (res) {
-                      console.log(res);
-                  })
-                  .catch(function (err) {
-                      console.log(err);
-                  })
-          }
+        created(){
+            this.$http.get('/api/'+this.msg.toRoute,{primaryclass:this.msg.primaryclass}).then(({data})=>{
+                this.data = data;
+            });
+
         },
-        components:{
-            TitleTop
+        mounted(){
+            $('.top-btn li').click(function(){
+                $(this).css("color","#000").siblings().css("color","#999");
+                $(".i-block1").css("color",'#999').next().css("color",'#999');
+            })
+            var flag = true;
+            $(".tab-price").click(function(){
+                if(flag){
+                    $(".i-block1").css("color",'#000');
+                    $('.i-block').css("color","#999");
+                    flag = !flag;
+                }else{
+                    $(".i-block1").css("color",'#999');
+                    $('.i-block').css("color","#000");
+                    flag = !flag;
+                }
+            });
+            Bus.$on("sendDatas",(data)=>{
+                this.indexData= data;
+            })
+        },
+        computed:{
+            ...mapState({
+                msg:(state)=>state.data.OneFloor
+            })
+        },
+        methods:{
+            getClass(_id){
+                return "id"+_id;
+            },
+            showSimilar(item){
+                if(item.isSimilar == undefined){
+                    this.$set(item,"isSimilar",true);
+                }else{
+                    item.isSimilar = !item.isSimilar;
+                }
+            }
+        },
+        filters:{
+            price(price){
+                return "¥"+price;
+            }
         }
     }
 </script>
 
 <style lang="less" scoped>
+    @import '../components/common/list/list.less';
+    @import './search/iconfont.css';
+    .only-forsale{
+        width:100%;
+        height: 2.9rem;
+        padding:0.8496rem 0.8789rem 0;
+        box-sizing: border-box;
+        background-color: #EFF0EF;
+        p {
+            border: 1px solid #DFE0DF;
+            height: 1.955rem;
+            line-height: 2.14rem;
+            text-align: center;
+            color: #B0B1B3;
+            background-color: #fff;
+            font-size:17px;
+        }
+
+    }
+    .top-btn .arrow .i-block1{
+        top: -3px;
+    }
+    .top-btn .arrow .i-block{
+        top: 4px;
+    }
+    .list-wrap{
+        position: relative;
+        top:0;
+        left:0;
+    }
     .dzimg {
         height: 5.9rem;
         width: 100%;
@@ -165,41 +248,6 @@
                     text-decoration: line-through;
                 }
             }
-        }
-    }
-    .suspend-cart {
-        position: fixed;
-        right:.95rem;
-        bottom:3.5rem;
-        z-index:10;
-        width:2.4rem;
-        height: 2.4rem;
-        border-radius: 50%;
-        background:rgba(0,0,0,0.3);
-        text-align: center;
-        line-height: 2.4rem;
-        a {
-            display: block;
-            width:100%;
-            height: 100%;
-            .iconfont {
-                color: #fff;
-                font-size: 1.2rem;
-            }
-        }
-        .cart-count {
-            position:absolute;
-            top:-.6rem;
-            right: -.5rem;
-            width: 1.8rem;
-            height: 1.8rem;
-            border-radius: 50%;
-            background:#f03d35;
-            color:#fff;
-            text-align: center;
-            font-size: 1rem;
-            line-height: 1.8rem;
-            transform:scale(.5);
         }
     }
 </style>
