@@ -300,7 +300,7 @@
         </div>
     </div>
 </template>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
 <script>
 // import swiperVue from '../common/lunbo.vue'
 import TitleTop from "../common/titleTop"

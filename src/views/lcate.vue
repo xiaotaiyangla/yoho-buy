@@ -121,11 +121,4 @@
     .list-wrap{
         top:4.5rem; 
     }
-    .top-btn .arrow .i-block1{
-            top: -3px;
-        }
-        .top-btn .arrow .i-block{
-            top: 4px;
-        }
-
 </style>
