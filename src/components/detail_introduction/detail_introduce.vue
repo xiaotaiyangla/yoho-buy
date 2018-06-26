@@ -260,28 +260,36 @@
                 <p>收藏</p>
             </a>
             <a class="add-cart" @click="isAdd()">
-               <span>加入购物车</span>  
+               <span class="enter">加入购物车</span>  
             </a>
         </div>
         <!-- 加入购物车的页面 -->
         <div class="addcart-page" v-if="panel">
             <div  class="chose-panel"   >
+                <div class="lookout" v-if="ingnorecolor">请选择颜色呐~</div>
+                <div class="lookout"  v-if="ingnoresize">请选择尺寸呐~</div>
+                <div class="lookout" v-if="ingnoretwo">请选择颜色和尺寸呐~</div>
+                <div class="lookout" v-if="success">成功添加入购物车了呢~</div>
                 <!-- 图片 -->
                 <div class="choose-wrap">
                     <img v-for="item in goodslist.goodsImgs"    :src="item"  alt="" style="width:4.1rem;min-height:5rem" >
                     <div class="choose">
                         <p v-if="goodslist.goodsPrice">¥{{goodslist.goodsPrice.currentPrice}}</p>
-                        <p>请选择颜色,尺码</p>
+                        <p v-if="stillchoose" >请选择颜色,尺码</p>
+                        <p v-if="alreadychoose">已经选择黑色，x</p>
                         <span class="remove" @click="isAdd()"></span>
                     </div>
                 </div>
                <!-- 颜色 -->
                 <div class="color">
-                    <span class="color-name">颜色 <span class="btn">黑色</span></span>
+                    <span  v-if="colors"     class="color-name" :class="{change:colors
+                    }">颜色 <span class="btn" @click="colorchange()">黑色</span></span>
+                    <span v-if="color" class="color-name">颜色 <span class="btn" @click="colorchange()"  style="background:white;border:1px solid;color:black">黑色</span></span>
                 </div>
                 <!-- 尺码 -->
                 <div class="color">
-                    <span class="color-name">尺码 <span  class="btn btn1">x</span></span>
+                    <span class="color-name" v-if="sizes">尺码 <span  @click="sizechange()" class="btn btn1">x</span></span>
+                    <span class="color-name" v-if="size" >尺码 <span  style="background:white;border:1px solid;color:black"   @click="sizechange()"  class="btn btn1">x</span></span>
                 </div>
               <!-- 数量 -->
               <div class="numbers">
@@ -300,19 +308,18 @@
         </div>
     </div>
 </template>
-<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
 <script>
 // import swiperVue from '../common/lunbo.vue'
-import TitleTop from "../common/titleTop"
+import TitleTop from "../common/titleTop";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 // import footerVue from "../common/footer.vue";
 export default {
   name: "detail_introduce",
-    components: {
-        swiper,
-        swiperSlide,
-        TitleTop
-    },
+  components: {
+    swiper,
+    swiperSlide,
+    TitleTop
+  },
   data() {
     return {
       //轮播部分
@@ -361,7 +368,17 @@ export default {
       comment: false,
       count: "",
       amount: 0,
-      showCircles: false
+      showCircles: false,
+      color:false,
+      colors:true,
+      size:false,
+      sizes:true,
+      ingnorecolor:false,
+      ingnoresize:false,
+      ingnoretwo:false,
+      success:false,
+      col:"",
+      size:"",
     };
   },
   created() {
@@ -460,6 +477,17 @@ export default {
       this.amount = this.amounts;
       console.log(this.amounts);
       console.log(this.amount);
+    },
+    colorchange(){
+      this.colors=!this.colors;
+      console.log(this.colors)
+      this.color=!this.color;
+      console.log(this.color)
+
+    },
+    sizechange(){
+      this.size=!this.size;
+      this.sizes=!this.sizes;
     }
   }
 };
@@ -469,6 +497,7 @@ export default {
 @import "../../assets/css/mixin";
 // 第一层
 .wrap {
+  font-family: helvetica;
   background: #f0f0f0;
 }
 .goods-name {
@@ -947,6 +976,9 @@ export default {
   a {
     float: left;
     margin-right: 1rem;
+    .enter{
+      font-size: 0.8rem;
+    }
     i {
       color: #444;
       font-size: 1rem;
@@ -972,6 +1004,7 @@ export default {
     text-align: center;
     font-size: 0.8rem;
     line-height: 2rem;
+    margin-left: 0.4rem;
     span {
       color: #fff;
     }
@@ -1009,14 +1042,30 @@ export default {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
+  .lookout{
+    position: fixed;
+    text-align: center;
+    width: 50%;
+    padding: 15px;
+    top: 50%;
+    left: 50%;
+    margin-left: -25%;
+    margin-top: -45px;
+    background-color: rgba(0,0,0,.7);
+    color: #fff;
+    font-size: .6rem;
+    border: none;
+    z-index: 100;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
   .chose-panel {
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
-    height: 70%;
+    height: 65%;
     background: #fff;
-    padding-bottom: 2.5rem;
     z-index: 1000;
     .choose-wrap {
       position: relative;
@@ -1066,6 +1115,7 @@ export default {
       border-bottom: 1px solid #e6e6e6;
       margin: 0 auto;
       font-size: 1rem;
+      height: 3.6rem;
       .color-name {
         margin-top: 1.25rem;
         left: 0;
@@ -1076,7 +1126,7 @@ export default {
           background: #d0021b;
           color: #fff;
           border-radius: 5px;
-          padding: 0.2rem 0.4rem;
+          padding: 0.3rem 0.4rem;
         }
         .btn1 {
           width: 1.5rem;
@@ -1092,6 +1142,7 @@ export default {
         font-size: 1rem;
         margin-top: 0.5rem;
         margin-left: 1.4rem;
+        margin-right: 0.3rem;
       }
       div {
         float: left;
@@ -1116,6 +1167,7 @@ export default {
         text-align: center;
         line-height: 2rem;
         outline: none;
+        font-size: 1rem;
       }
     }
     .btn-wrap {
@@ -1142,6 +1194,7 @@ export default {
         float: left;
         outline: none;
       }
+      
     }
   }
 }
