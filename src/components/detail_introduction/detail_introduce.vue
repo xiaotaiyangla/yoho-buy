@@ -38,11 +38,11 @@
                     </li>
                     <li>
                         <span class="silver-card"></span>
-                        <span>¥121.60</span>
+                        <span>¥111.60</span>
                     </li>
                     <li>
                         <span class="platinum-card"></span>
-                        <span>¥121.60</span>
+                        <span>¥100.60</span>
                     </li>
                 </div>
             </ul>
@@ -59,8 +59,10 @@
         <div class="feedback">
             <!-- 头 -->
             <div class="nav">
-                <span class="nav-left" v-if="goodslist.comments"  >商品评价（{{goodslist.comments.count}}）</span>
-                <span class="nav-right" @click="active()" ref="navRight">常见问题</span>
+                <span class="nav-left" v-if="goodslist.comments"  v-show="comments"  @click="commentactive()">商品评价（{{goodslist.comments.count}}）</span>
+                <span class="nav-left" v-if="goodslist.comments" v-show="comment" @click="commentactive()"  style="color:black" >商品评价（{{goodslist.comments.count}}）</span>
+                <span class="nav-right" @click="active()"  v-if="normalproblem" >常见问题</span>
+                 <span class="nav-right" @click="active()" v-if="normalproblems" style="color:black" >常见问题</span>
             </div>
             <!-- 商品评价页面 -->
             <div class="commentPage" v-if="commentPageChange">
@@ -80,7 +82,7 @@
                 <div class="learnmore">
                     <a href="###">
                         <span>查看更多</span>
-                        <i></i>
+                        <i class="icon-keyboard_arrow_right"></i>
                     </a>
                 </div>
             </div>
@@ -89,11 +91,11 @@
                 <div class="question">
                     <!-- 问题一 -->
                     <div class="question-detail">
-                        <i></i>
+                        <i class="icon-question"></i>
                         <span>商品都是正品吗？</span>
                     </div>
                     <div class="answer-detail">
-                        <i></i>
+                        <i class="icon-check_circle"></i>
                         <span>商品都是正品</span>
                     </div>
                 </div>
@@ -102,7 +104,7 @@
              <div class="learnmore">
                     <a href="###">
                         <span>查看更多</span>
-                        <i></i>
+                        <i class="icon-keyboard_arrow_right"></i>
                     </a>
                 </div>
         </div>
@@ -117,7 +119,7 @@
                 </a>
                 <a href="###" class="store-link">
                     进入店铺
-                    <i></i>
+                    <i class="icon-keyboard_arrow_right"></i>
                 </a>
             </div>
         </div>
@@ -172,7 +174,7 @@
                 </div>
                 <div class="showpicture">
                 <!-- 商品图片 -->
-                <img   src="https://img12.static.yhbimg.com/goodsimg/2018/05/25/18/02edfd15075da626aee83ded4d2f000442.jpg?imageMogr2/thumbnail/750x/quality/60/interlace/1/format/webp" alt="" style="width:17.31rem
+                <img   :src="goodslist.goodsDetails" alt="" style="width:17.31rem
                 "></div>
             </div>
         </div>
@@ -180,7 +182,7 @@
         <div>
             <div>
                 <!-- 头 -->
-                <p>店铺推荐</p>
+                <!-- <p>店铺推荐</p> -->
                 <!-- 产品一 -->
                 <div>
                     <a>
@@ -237,12 +239,66 @@
             <img v-for="item in goodslist.goodsImgs"    :src="item"  alt="" @click="shadowchange()" style="width:18.8rem">
         </div>
         <!-- 其他：返回顶部按钮 -->
-        <div class="return-top" v-if="{returnTop:handleScroll}" ref="back" @click="backTop()">
+        <div class="return-top" v-if="returnTop" ref="back" @click="backTop()">
         </div>
-
-
-        
-       
+        <!-- 底部 -->
+        <div class="cart-bar">
+            <a class="bottom-cart">
+                <i class="icon-cart"></i>
+                <p>购物车</p>
+                <p class="circle" v-if="showCircle" >{{amount}}</p>
+            </a>
+            <a>
+                <i class="icon-home2"></i>
+                <p>品牌商铺</p>
+            </a>
+            <a v-if="loveheart">
+                <i class="icon-favorite" @click="favorite()" ref="favorite" ></i>
+                <p>收藏</p>
+            </a>
+            <a v-if="love">
+                <i class="icon-favorite-another icon-favorite" @click="favorite()" ref="favorite"   style="color:red" ></i>
+                <p>收藏</p>
+            </a>
+            <a class="add-cart" @click="isAdd()">
+               <span>加入购物车</span>  
+            </a>
+        </div>
+        <!-- 加入购物车的页面 -->
+        <div class="addcart-page" v-if="panel">
+            <div  class="chose-panel"   >
+                <!-- 图片 -->
+                <div class="choose-wrap">
+                    <img v-for="item in goodslist.goodsImgs"    :src="item"  alt="" style="width:4.1rem;min-height:5rem" >
+                    <div class="choose">
+                        <p v-if="goodslist.goodsPrice">¥{{goodslist.goodsPrice.currentPrice}}</p>
+                        <p>请选择颜色,尺码</p>
+                        <span class="remove" @click="isAdd()"></span>
+                    </div>
+                </div>
+               <!-- 颜色 -->
+                <div class="color">
+                    <span class="color-name">颜色 <span class="btn">黑色</span></span>
+                </div>
+                <!-- 尺码 -->
+                <div class="color">
+                    <span class="color-name">尺码 <span  class="btn btn1">x</span></span>
+                </div>
+              <!-- 数量 -->
+              <div class="numbers">
+                  <span class="number">数量</span>
+                  <div>
+                      <span class="delete" @click="del()">-</span>
+                      <input  class="amount"   type="text"    disabled="1" v-model="amounts">
+                      <span class="add" @click="amounts++">+</span>
+                  </div>
+              </div>
+              <div class="btn-wrap">
+                  <button class="buynow" >立即购买</button>
+                  <button class="addCarts" @click="addcarts()" >加入购物车</button>
+              </div>
+            </div>
+        </div>
     </div>
 </template>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -289,7 +345,18 @@ export default {
       swiperPagination: false,
       commentPage: true,
       returnTop: false,
-      shadow: false
+      shadow: false,
+      panel: false,
+      amounts: 1,
+      love: false,
+      loveheart: true,
+      normalproblem: false,
+      normalproblems: true,
+      comments: true,
+      comment: false,
+      count: "",
+      amount: 0,
+      showCircles: false
     };
   },
   components: {
@@ -309,14 +376,16 @@ export default {
         console.log(response.data);
         // console.log(this.goodslist)
         this.goodslist = response.data;
-        console.log(this.goodslist);
+        this.comments = response.data.comments;
+        this.count = response.data.comments.count;
+        // console.log(this.goodslist);
       })
       .catch(function(error) {
         console.log(error);
       });
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.onscroll = this.handleScroll;
   },
   computed: {
     showimg() {
@@ -326,24 +395,36 @@ export default {
       }
     },
     commentPageChange() {
-      if (this.goodslist.comments) {
+      if (this.count < 0) {
         return this.commentPage == false;
       }
     },
-    //???
-    handleScroll() {
-      if (document.documentElement.scrollTop + document.body.scrollTop > 1000) {
-        this.returnTop = true;
-        console.log(this.returnTop);
-      } else {
-        this.returnTop = false;
+    showCircle() {
+      if (this.amount > 0) {
+        console.log(this.amount);
+        return (this.showCircles = true);
       }
     }
   },
 
   methods: {
+    del() {
+      if (this.amounts <= 1) {
+        this.amounts = 1;
+      } else {
+        this.amounts--;
+      }
+    },
+    commentactive() {
+      if (this.count <= 0) {
+        this.comments == this.comments;
+      } else {
+        (this.comments = !this.comments), (this.comment = !this.comment);
+      }
+    },
     active() {
-      this.$refs.navRight.style.color = "black";
+      (this.normalproblem = !this.normalproblem),
+        (this.normalproblems = !this.normalproblems);
     },
     backTop() {
       let back = setInterval(() => {
@@ -355,9 +436,31 @@ export default {
         }
       });
     },
+    handleScroll() {
+      if (document.documentElement.scrollTop + document.body.scrollTop > 2000) {
+        this.returnTop = true;
+        // console.log(document.documentElement.scrollTop + document.body.scrollTop)
+        // console.log(this.returnTop);
+      } else {
+        this.returnTop = false;
+        // console.log(this.returnTop)
+      }
+    },
     shadowchange() {
       this.shadow = !this.shadow;
       console.log(this.shadow);
+    },
+    isAdd() {
+      this.panel = !this.panel;
+      console.log(this.panel);
+    },
+    favorite() {
+      (this.love = !this.love), (this.loveheart = !this.loveheart);
+    },
+    addcarts() {
+      this.amount = this.amounts;
+      console.log(this.amounts);
+      console.log(this.amount);
     }
   }
 };
@@ -554,10 +657,9 @@ export default {
       .question-detail {
         font-size: 0.6rem;
         color: #444;
-        i {
-          background: url(./question.png) no-repeat;
-          width: 1rem;
-          height: 1rem;
+        .icon-question {
+          // background: url(./question.png) no-repeat;
+          font-size: 0.7rem;
           display: inline-block;
           vertical-align: middle;
         }
@@ -567,10 +669,9 @@ export default {
         line-height: 0.9rem;
         color: #b0b0b0;
         margin-top: 0.35rem;
-        i {
-          background: url(./answer.png) no-repeat;
-          width: 1rem;
-          height: 1rem;
+        .icon-check_circle {
+          // background: url(./answer.png) no-repeat;
+          font-size: 0.7rem;
           display: inline-block;
           vertical-align: middle;
         }
@@ -591,13 +692,13 @@ export default {
   span {
     color: #b0b0b0;
   }
-  i {
-    background: url(./right-arrow.png) no-repeat;
-    width: 1rem;
-    height: 1rem;
+  .icon-keyboard_arrow_right {
+    // background: url(./right-arrow.png) no-repeat;
+    font-size: 1rem;
     display: inline-block;
     vertical-align: middle;
-    margin-top: -0.4rem;
+    // margin-top: -0.4rem;
+    color: #b0b0b0;
   }
 }
 //第三层
@@ -628,13 +729,12 @@ export default {
       color: #b0b0b0;
       text-align: right;
       font-size: 0.7rem;
-      i {
-        background: url(./right-arrow.png) no-repeat;
-        width: 1rem;
-        height: 1rem;
+      .icon-keyboard_arrow_right {
+        // background: url(./right-arrow.png) no-repeat;
+        font-size: 1rem;
         display: inline-block;
         vertical-align: middle;
-        margin-top: -0.4rem;
+        // margin-top: -0.4rem;
       }
     }
   }
@@ -829,6 +929,221 @@ export default {
     widows: 100%;
     height: 500px;
     margin-top: 83.5px;
+  }
+}
+//底部
+.cart-bar {
+  // position: relative;
+  position: fixed;
+  bottom: 0;
+  // left: 50%;
+  // margin-left: -8rem;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 0.5rem 0.7rem;
+  width: 100%;
+  height: 3rem;
+  border-top: 1px solid #e0e0e0;
+  background-color: #fff;
+  a {
+    float: left;
+    margin-right: 1rem;
+    i {
+      color: #444;
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+    span {
+      color: #444;
+      font-size: 0.375rem;
+    }
+    p {
+      color: #444;
+      font-size: 0.375rem;
+      // margin-right: 0.9rem;
+      text-align: center;
+      display: block;
+    }
+  }
+  .add-cart {
+    width: 6.5rem;
+    height: 2rem;
+    background-color: #eb0313;
+    color: #fff;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 2rem;
+    span {
+      color: #fff;
+    }
+  }
+  .bottom-cart {
+    padding-left: 1rem;
+    position: relative;
+    .circle {
+      position: absolute;
+      left: 2.3rem;
+      top: 0;
+      width: 0.7rem;
+      height: 0.7rem;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+    }
+  }
+  .icon-home2 {
+    margin-left: 0.7rem;
+  }
+  .icon-cart {
+    margin-left: 0.4rem;
+  }
+}
+//商品详情
+.addcart-page {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50000;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  .chose-panel {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 70%;
+    background: #fff;
+    padding-bottom: 2.5rem;
+    z-index: 1000;
+    .choose-wrap {
+      position: relative;
+      padding-bottom: 0.75rem;
+      min-height: 4.75rem;
+      border-bottom: 1px solid #e6e6e6;
+      width: 16rem;
+      margin: 0 auto;
+      img {
+        width: 4.1rem;
+        min-height: 5rem;
+        position: absolute;
+        top: -1.5rem;
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+        margin-left: 1rem;
+      }
+      .choose {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 6rem;
+        height: auto;
+        margin-top: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.2rem;
+      }
+      .remove {
+        background: url(./delete.png) no-repeat;
+        width: 1rem;
+        height: 1rem;
+        float: right;
+        width: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        line-height: 1.5rem;
+        color: #b1b1b1;
+        z-index: 2;
+        position: absolute;
+        top: 1rem;
+        left: 15rem;
+      }
+    }
+    .color {
+      position: relative;
+      width: 16rem;
+      overflow: hidden;
+      border-bottom: 1px solid #e6e6e6;
+      margin: 0 auto;
+      font-size: 1rem;
+      .color-name {
+        margin-top: 1.25rem;
+        left: 0;
+        height: 3rem;
+        display: block;
+        .btn {
+          border-color: #e10;
+          background: #d0021b;
+          color: #fff;
+          border-radius: 5px;
+          padding: 0.2rem 0.4rem;
+        }
+        .btn1 {
+          width: 1.5rem;
+          display: inline-block;
+          text-align: center;
+        }
+      }
+    }
+    .numbers {
+      margin-top: 1.25rem;
+      .number {
+        float: left;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        margin-left: 1.4rem;
+      }
+      div {
+        float: left;
+      }
+      .delete,
+      .add {
+        display: block;
+        float: left;
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid #e6e6e6;
+        text-align: center;
+        line-height: 2rem;
+      }
+      .amount {
+        float: left;
+        margin-left: -1px;
+        padding: 0;
+        width: 2.65rem;
+        height: 2rem;
+        border: 1px solid #e6e6e6;
+        text-align: center;
+        line-height: 2rem;
+        outline: none;
+      }
+    }
+    .btn-wrap {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      .buynow {
+        width: 50%;
+        height: 2rem;
+        border: none;
+        background: #444;
+        color: #fff;
+        font-size: 0.8rem;
+        float: left;
+        outline: none;
+      }
+      .addCarts {
+        width: 50%;
+        height: 2rem;
+        border: none;
+        background: #d0021b;
+        color: #fff;
+        font-size: 0.8rem;
+        float: left;
+        outline: none;
+      }
+    }
   }
 }
 </style>
