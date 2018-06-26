@@ -1,17 +1,45 @@
- <ul class="new-img">
+<template>
+    <!--"新品到着"页面-->
+    <div class="newpage">
+        <div class="cartwrap">
+            <div class="cart-logo">
+                <i class="iconfont icon-ai-cart"></i>
+            </div>
+            <span class="cart-count">0</span>
+        </div>
+        <title-top :title='msg.name'></title-top>
+        <div class="dzimg" v-if="msg.bgimg">
+            <ul class="new-img">
                 <li class="new-slide">
                     <a href="">
-                        < img :src="piture.src" alt="">
+                        <img :src="msg.bgimg" :alt="msg.name">
                     </a >
                 </li>
             </ul>
         </div>
+        <!--special-->
+        <div class="only-forsale" v-if="msg.tag">
+            <p>最新降价</p>
+        </div>
         <!-- list-->
-        <ul class="top-btn">
-            <li>6月25号</li>
-            <li>人气单品</li>
-            <li>本周上新</li>
-            <li>销量</li>
+        <ul class="top-btn" v-if="msg.tabs == void 0">
+            <li>默认
+                <i class="iconfont icon-sanjiao_xia"></i>
+            </li>
+            <li>新品</li>
+            <li>人气</li>
+            <li class="tab-price">价格
+                <span class="arrow">
+                    <i class="iconfont icon-shangjiantou i-block1"></i>
+                    <i class="iconfont icon-xiajiantou i-block"></i>
+                </span>
+            </li>
+            <li>筛选
+                <i class="iconfont icon-sanjiao_xia"></i>
+            </li>
+        </ul>
+        <ul class="top-btn" v-if="msg.tabs">
+            <li v-for="tab in msg.tabs">{{tab}}</li>
             <li>筛选
                 <i class="iconfont icon-sanjiao_xia"></i>
             </li>
@@ -19,7 +47,7 @@
         <div class="list-wrap">
             <ul class="list-con">
                 <li v-for="item in data" :class="getClass(item.goodsId)">
-                    < img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
                     <div class="desdetail">
                         <p class="prosname">{{item.goodsName}}</p >
                         <p class="aboutprice">
@@ -45,6 +73,7 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
     import Bus from '../components/common/bus.js'
     import TitleTop from "../components/common/titleTop"
     import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
@@ -65,7 +94,7 @@
 
         },
         created(){
-            this.$http.get('/api/goods/new-goods').then(({data})=>{
+            this.$http.get('/api/'+this.msg.toRoute,{primaryclass:this.msg.primaryclass}).then(({data})=>{
                 this.data = data;
             });
 
@@ -73,9 +102,27 @@
         mounted(){
             $('.top-btn li').click(function(){
                 $(this).css("color","#000").siblings().css("color","#999");
+                $(".i-block1").css("color",'#999').next().css("color",'#999');
+            })
+            var flag = true;
+            $(".tab-price").click(function(){
+                if(flag){
+                    $(".i-block1").css("color",'#000');
+                    $('.i-block').css("color","#999");
+                    flag = !flag;
+                }else{
+                    $(".i-block1").css("color",'#999');
+                    $('.i-block').css("color","#000");
+                    flag = !flag;
+                }
             });
             Bus.$on("sendDatas",(data)=>{
                 this.indexData= data;
+            })
+        },
+        computed:{
+            ...mapState({
+                msg:(state)=>state.data.OneFloor
             })
         },
         methods:{
@@ -101,6 +148,29 @@
 <style lang="less" scoped>
     @import '../components/common/list/list.less';
     @import './search/iconfont.css';
+    .only-forsale{
+        width:100%;
+        height: 2.9rem;
+        padding:0.8496rem 0.8789rem 0;
+        box-sizing: border-box;
+        background-color: #EFF0EF;
+        p {
+            border: 1px solid #DFE0DF;
+            height: 1.955rem;
+            line-height: 2.14rem;
+            text-align: center;
+            color: #B0B1B3;
+            background-color: #fff;
+            font-size:17px;
+        }
+
+    }
+    .top-btn .arrow .i-block1{
+        top: -3px;
+    }
+    .top-btn .arrow .i-block{
+        top: 4px;
+    }
     .list-wrap{
         position: relative;
         top:0;

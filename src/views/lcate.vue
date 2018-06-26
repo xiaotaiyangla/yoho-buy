@@ -66,6 +66,9 @@
             Bus.$on("secondclass",(data)=>{
                 this.mySecondclass = data;
             });
+            Bus.$on('indexsecondclass',(data)=>{
+                this.mySecondclass = data;
+            });
             this.$http.get('/api/goods/goods-class',{
                 primaryclass:this.myPrimaryClass,
                 secondclass:this.mySecondclass
