@@ -47,7 +47,7 @@
 <script>
     import Bus from '../components/common/bus.js'
     import TitleTop from "../components/common/titleTop"
-  import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
+    import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
     import FooterHome from '../components/common/footerHome' //首页底部
     export default {
         name: "new",
@@ -59,7 +59,7 @@
                 piture:{
                     src:"http://img12.static.yhbimg.com/yhb-img01/2016/02/29/07/025d532df4d76507c663157d7f34927324.jpg?imageView2/2/w/640/h/240/q/60"
                 },
-                 data:{},
+                data:{},
                 indexData:{},
             }
 
@@ -99,13 +99,13 @@
 </script>
 
 <style lang="less" scoped>
-@import '../components/common/list/list.less';
-@import './search/iconfont.css';
-.list-wrap{
-    position: relative;
-    top:0;
-    left:0;
-}
+    @import '../components/common/list/list.less';
+    @import './search/iconfont.css';
+    .list-wrap{
+        position: relative;
+        top:0;
+        left:0;
+    }
     .dzimg {
         height: 5.9rem;
         width: 100%;
