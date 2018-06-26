@@ -16,28 +16,180 @@
                 </div>
 
             </div>
+
+            <!--tab切换部分-->
+            <div class="tab">
+                <!--nav-->
+                <ul class="shop-tabs">
+                    <li class="shop-tab-nav" v-for="(item,index) in items" :class="{hue:changeHue == index}" @click="goPage(index)" style="border-right: 1px solid rgb(222,223,229)">
+                        <span>{{item.name}}</span>
+                    </li>
+                </ul>
+                <!--nav内容-->
+                <div class="tab-panels">
+                    <!--导航一内容-->
+                    <div class="home-nav" v-if="first">
+                        <!--轮播-->
+                        <div class="container2">
+                        <swiper class="swiper" :options="swiperOption"  ref="mySwiper">
+                            <!-- 这部分放你要渲染的那些内容 -->
+                            <swiper-slide class="swiper-slide" data-swiper-autoplay="3000">
+                                <a href="">
+                                    <img style="width:100vw;" src="https://img12.static.yhbimg.com/yhb-img02/2017/12/14/16/02eec0f891d5b9ed0431ada962d95416ce.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </swiper-slide>
+                            <swiper-slide class="swiper-slide" data-swiper-autoplay="3000">
+                                <a href="">
+                                    <img style="width:100vw;" src="https://img13.static.yhbimg.com/yhb-img02/2017/12/14/16/0280108393dd562e4a0b41612b37189e50.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </swiper-slide>
+                        </swiper>
+                        </div>
+                        <div class="bt"></div>
+                        <div class="itemCon">
+                            <div class="item">
+                                <a href="javascript:;">
+                                    <img class="item-pic" src="http://img12.static.yhbimg.com/yhb-img02/2017/12/11/16/0217660a02fea44782667d0d1d5e35a141.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a href="javascript:;">
+                                    <img class="item-pic" src="http://img13.static.yhbimg.com/yhb-img02/2017/12/11/16/02cf3aee2e64349e2300b8df4512e45fd3.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bt"></div>
+                        <div class="itemCon2">
+                            <div class="item">
+                                <a href="javascript:;">
+                                    <img class="item-pic" src="http://img13.static.yhbimg.com/yhb-img02/2017/12/11/16/020706ddf2392dbeb11308bcc8fead493f.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a href="javascript:;">
+                                    <img class="item-pic" src="http://img13.static.yhbimg.com/yhb-img02/2017/12/12/11/0280efcf048f2a23df1a987fcf837a4a13.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a href="javascript:;">
+                                    <img class="item-pic" src="http://img13.static.yhbimg.com/yhb-img02/2017/12/11/16/02d1b276ddfd551a69e8fa71bb7dc1a5b7.jpg?imageMogr2/quality/80" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bt"></div>
+                    </div>
+                    <!--导航二内容-->
+                    <div class="new-nav" v-else-if="second">
+
+                    </div>
+                    <!--导航三内容-->
+                    <div class="goods-nav" v-else-if="third">
+
+                    </div>
+                </div>
+            </div>
         </router-link>
+        <!--底部-->
+        <div class="shop-foot-wrapper">
+            <ul>
+                <li class="shop_footnav_one">
+                    <span id="shop-category" @click="showToggle">商品分类</span>
+                    <div class="sub-group" v-show="isShow">
+                        <dl>
+                            <dd>
+                                <a href="javascript:;">美妆/个护</a>
+                            </dd>
+                        </dl>
+                        <div class="sharp"></div>
+                    </div>
+                    <div class="wall"></div>
+                </li>
+                <li>
+                    <a href="javascript:;">店铺简介</a>
+                </li>
+            </ul>
+        </div>
+
         <router-view></router-view>
     </div>
 </template>
 
 <script>
     import TitleTop from '../../components/common/titleTop'
+    import {swiper, swiperSlide} from 'vue-awesome-swiper'
     export default {
-        components: {TitleTop},
+        components:
+            {
+                TitleTop,
+                swiper,
+                swiperSlide
+            },
         name: "hot-brand-shuff",
-        data(){
-            return{
-                isA:false,
-                btnStatus:true
+        data() {
+            return {
+                isA: false,
+                btnStatus: true,
+                isShow: false,
+                items: [
+                    {
+                        name: "首页"
+                    },
+                    {
+                        name: "新品"
+                    },
+                    {
+                        name: "全部商品"
+                    }
+                ],
+                first: true,
+                second: false,
+                third: false,
+                changeHue:0,
+
+                //以下为轮播图部分
+                swiperOption: {
+                    notNextTick: true,
+                    autoplay: true,
+                    direction: 'horizontal',
+                    grabCursor: true,
+                    setWrapperSize: true,
+                    autoHeight: true,
+                    loop: true,
+                    paginationClickable: true,
+                    mousewheelControl: true,
+                    observeParents: true,
+                    debugger: true,
+                }
             }
         },
-        methods:{
-            getShow(){
-                this.isA=!this.isA;
+        methods: {
+            getShow() {
+                this.isA = !this.isA;
             },
-            changeStatus(){
-                this.btnStatus=this.btnStatus?false:true;
+            changeStatus() {
+                this.btnStatus = this.btnStatus ? false : true;
+            },
+            showToggle() {
+                this.isShow = !this.isShow;
+            },
+            goPage(index) {
+                console.log(index);
+                if (index == 0) {
+                    this.first = true;
+                    this.second = false;
+                    this.third = false;
+                    this.changeHue = index;
+                } else if (index == 1) {
+                    this.first = false;
+                    this.second = true;
+                    this.third = false;
+                    this.changeHue = index;
+                } else if (index == 2) {
+                    this.first = false;
+                    this.second = false;
+                    this.third = true;
+                    this.changeHue = index;
+                }
             }
         }
     }
@@ -49,6 +201,10 @@
     }
     .class-b {
         color: white;
+    }
+    .hue {
+        color: rgb(184,155,178);
+        font-weight: 500;
     }
     .branner-top {
         width: 100%;
@@ -113,6 +269,147 @@
                 }
             }
 
+        }
+    }
+
+    /*底部样式*/
+    .shop-foot-wrapper {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        display: table;
+        width:100%;
+        height: 2rem;
+        line-height: 2rem;
+        font-size: .65rem;
+        background: #fff;
+        border-top: 1px solid #e0e0e0;
+        z-index: 2;
+        ul {
+            display: table-row;
+            li {
+                display: table-cell;
+                text-align: center;
+                .sub-group {
+                    position: absolute;
+                    background: #fff;
+                    border: 1px solid #e0e0e0;
+                    border-radius: .3rem;
+                    bottom: 2.6rem;
+                    width:40%;
+                    margin-left: 5%;
+                    dl {
+                        padding: 0 0.75rem;
+                        margin: 0 auto;
+                        dd {
+                            line-height: 2rem;
+                            text-align: center;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                    .sharp {
+                        position: absolute;
+                        width:100%;
+                        height: .25rem;
+                    }
+
+                }
+                .wall {
+                    width: 0;
+                    height: 1.25rem;
+                    margin-top:.375rem;
+                    float: right;
+                    border-right: 1px solid #e0e0e0;
+                    display: inline-block;
+                }
+            }
+        }
+
+    }
+
+    /*tab-导航条*/
+    .shop-tabs {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        font-size: .75rem;
+        line-height: 2rem;
+        border-top: 1px solid #dededf;
+        border-bottom: 1px solid #dededf;
+        background-color: #fff;
+        .shop-tab-nav {
+            width: 33.33%;
+            text-align: center;
+            span {
+                display: inline-block;
+                width: 100%;
+            }
+        }
+    }
+
+    //轮播图
+    .container2 {
+        position: relative;
+        width: 100%;
+        height: 5.8rem;
+        max-height: 5.8rem;
+        overflow: hidden;
+        padding-left: 0;
+        .swiper{
+            position: relative;
+            width: 100%;
+            height: 5.8rem;
+            .swiper-slide {
+                a {
+                    float: left;
+                    width:100%;
+                    height: 5.8rem;
+                    text-decoration: none;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+        }
+    }
+
+    //轮播图下面图片
+    .bt {
+        width: 100%;
+        height: .6rem;
+        background: #f0f0f0;
+        margin-top: -0.2rem;
+    }
+    .itemCon {
+        overflow: hidden;
+        font-size: .6rem;
+        position: relative;
+        .item {
+            position: relative;
+            width: 50%;
+            height: 9.375rem;
+            float: left;
+            overflow: hidden;
+            .item-pic {
+                width: 100%;
+            }
+        }
+    }
+    .itemCon2 {
+        overflow: hidden;
+        font-size: .45rem;
+        width: 100%;
+        .item {
+            float: left;
+            width: 33.3333333333%;
+            height: 8.325rem;
+            img {
+                width: 100%;
+            }
         }
     }
 </style>

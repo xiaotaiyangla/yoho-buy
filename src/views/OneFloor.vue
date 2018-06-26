@@ -4,7 +4,6 @@
             <li @click="goPage(index)" class="icons-item" v-for="(item,index) in items">
                 <a class="imgebar" href=""><img :src="item.src" alt=""></a>
                 <a class="linkbar" href="">{{item.name}}</a>
-
             </li>
         </ul>
     </div>
