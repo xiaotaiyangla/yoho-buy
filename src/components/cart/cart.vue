@@ -11,14 +11,15 @@
             <div class="unregistered">
                 <!-- 请先登录 -->
                 <div class="warning">
-                    <i class="icon-arrow_lift"></i> 
+                    <i class="icon-notification"
+                    ></i> 
                     <!-- 转登录页面 -->
                     <span>请您先<a href="###">登录</a>可以同步电脑和手机中的商品</span>
                 </div>
                 <!-- 购物车 -->
                 <div class="unregistered-cart">
                     <div>
-                        <i></i>
+                        <i class="icon-cart"></i>
                         <p>您的购物车暂无商品</p>
                         <a href="###">随便逛逛</a>
                     </div>
@@ -72,13 +73,14 @@ header {
       font-size: 0.825rem;
       box-sizing: content-box;
     }
-    i {
-      background: url(./warning.png) no-repeat;
-      width: 1rem;
-      height: 1.2rem;
+    .icon-notification{
+      // background: url(./warning.png) no-repeat;
+      font-size: 1rem;
       display: inline-block;
       margin-left: 1rem;
-      vertical-align: bottom;
+      vertical-align: baseline;
+      color:  #24acaa;
+
     }
     a {
       display: inline-block;
@@ -94,13 +96,13 @@ header {
       padding-bottom: 20%;
       margin-top: 3.3rem;
     }
-    i {
-      background: url(./cart.png) no-repeat;
-      width: 5rem;
-      height: 4.5rem;
+    .icon-cart{
+      // background: url(./cart.png) no-repeat;
+      font-size: 4.5rem;
       display: inline-block;
       margin-left: 6.9rem;
       vertical-align: bottom;
+      color:#444
     }
     p {
       color: #444;
