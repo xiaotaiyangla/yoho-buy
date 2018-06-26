@@ -25,13 +25,18 @@
                 </div>
             </div>
         </div>
+        <index-bottom></index-bottom>
     </div>
 </template>
 
 <script>
     import Bus from '../../components/common/bus'
+    import IndexBottom from '../../components/common/footerHome'
     export default {
         name: "cate",
+        components:{
+            IndexBottom
+        },
         data(){
             return{
                 data:[],
@@ -52,7 +57,9 @@
                 this.forclass = "ul"+_index;
                 //判断是否有下级
                 if(item.secondClass == ''){
-                    Bus.$emit("primaryClass",item.primaryClass);
+                    setInterval(()=>{
+                        Bus.$emit("primaryClass",item.primaryClass);
+                    },1000);
                     this.theQuery = item.primaryClass;
                     this.$router.push({
                         path:"/list",
@@ -67,7 +74,9 @@
                 return "ul"+index1;
             },
             toList(_name){
-                Bus.$emit("secondclass",_name);
+                setInterval(()=>{
+                    Bus.$emit("secondclass",_name);
+                },500)
                 this.theQuery = _name;
                 console.log(this.theQuery);
                 this.$router.push({
@@ -96,7 +105,7 @@
         position: absolute;
         left: 0;
         top:2.519rem;
-        bottom: 2.9295rem;
+        bottom: 0;
         overflow: hidden;
         width: 8.4375rem;
         ul{
@@ -120,7 +129,7 @@
         position: absolute;
         right: 0;
         top:2.519rem;
-        bottom: 2.9295rem;
+        bottom: 0;
         width: calc(100% - 8.4375rem);
         overflow: hidden;
         .item-name{

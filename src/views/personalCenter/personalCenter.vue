@@ -128,6 +128,8 @@
             height: 2rem;
             line-height:2rem;
             .icon-jiantou{
+                height: 2rem;
+                line-height:2rem;
                 float: right;
             }
             span{
@@ -182,6 +184,8 @@
                 float: left;
                 border-bottom:1px solid #e0e0e0;
                 .icon-jiantou{
+                    height: 2.2rem;
+                    line-height: 2.2rem;
                     margin-right: .75rem;
                     float: right;
                 }

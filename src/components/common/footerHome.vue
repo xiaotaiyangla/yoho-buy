@@ -1,8 +1,8 @@
 <template>
     <ul class="footer-tab">
         <li>
-            <i class="iconfont icon-tubiao01"></i>
             <router-link to="/index">
+            <i class="iconfont icon-tubiao01"></i>
                 <p class="tab-name active">首页</p>
             </router-link>
         </li>
@@ -22,8 +22,8 @@
 
 
         <li>
-            <i class="iconfont icon-wode-weixuanzhong hfcolor"></i>
             <router-link to="/personalCenter">
+            <i class="iconfont icon-wode-weixuanzhong hfcolor"></i>
             <p class="tab-name">我的</p>
             </router-link>
         </li>
