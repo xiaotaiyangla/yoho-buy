@@ -2,7 +2,7 @@
     <div class="icons-wrapper">
         <ul class="icons-list">
             <li class="icons-item" v-for="(item,index) in items" :class="getClass(index)">
-                <a class="imgebar" @click="toList(index)">< img :src="item.src" alt=""></a >
+                <a class="imgebar" @click="toList(index)"><img :src="item.src" alt=""></a>
                 <a class="linkbar">{{item.name}}</a >
             </li>
         </ul>

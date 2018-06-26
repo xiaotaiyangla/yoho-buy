@@ -3,8 +3,7 @@
         <!-- 第一层 -->
         <div>
             <!-- 顶部 -->
-            <header>
-            </header>
+            <title-top title="详情页"></title-top>
             <!-- 轮播图 -->
             <div class="container">
                 <swiper class="swiper" :options="swiperOption"  ref="mySwiper">
@@ -304,10 +303,16 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
 // import swiperVue from '../common/lunbo.vue'
+import TitleTop from "../common/titleTop"
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 // import footerVue from "../common/footer.vue";
 export default {
   name: "detail_introduce",
+    components: {
+        swiper,
+        swiperSlide,
+        TitleTop
+    },
   data() {
     return {
       //轮播部分
@@ -358,12 +363,6 @@ export default {
       amount: 0,
       showCircles: false
     };
-  },
-  components: {
-    // footerVue,
-    // swiperVue,
-    swiper,
-    swiperSlide
   },
   created() {
     axios

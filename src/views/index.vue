@@ -1,7 +1,7 @@
 <template>
     <div class="outest-container">
         <div class="top">
-            <span>仙贝杂货店</span>
+            <img src="../components/common/logo.jpg" alt="包包杂货店" class="logopng">
             <a href="/search">
                 <i class="iconfont icon-sousuo"></i>
             </a>
@@ -177,6 +177,11 @@
         background-color:#4f4138;
         background-image: linear-gradient(#323232,#414141);
         color:#fff;
+        .logopng{
+            float:left;
+            width: 1rem;
+            height:100%;
+        }
         a{
             position:absolute;
             right:0;
