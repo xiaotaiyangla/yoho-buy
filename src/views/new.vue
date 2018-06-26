@@ -6,8 +6,8 @@
             <ul class="new-img">
                 <li class="new-slide">
                     <a href="">
-                        <img :src="piture.src" alt="">
-                    </a>
+                        < img :src="piture.src" alt="">
+                    </a >
                 </li>
             </ul>
         </div>
@@ -24,16 +24,16 @@
         <div class="list-wrap">
             <ul class="list-con">
                 <li v-for="item in data" :class="getClass(item.goodsId)">
-                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    < img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
                     <div class="desdetail">
-                        <p class="prosname">{{item.goodsName}}</p>
+                        <p class="prosname">{{item.goodsName}}</p >
                         <p class="aboutprice">
                             <span class="cuprice" :class="{'cuprice2':item.goodsPrice.oldprice}">{{item.goodsPrice.currentPrice | price}}</span>
                             <span v-if="item.goodsPrice.oldprice" class="oldprice">{{item.goodsPrice.oldprice | price}}</span>
                             <span class="formore" @click="showSimilar(item)">
                                 <i class="iconfont icon-htmal5icon26"></i>
                             </span>
-                        </p>
+                        </p >
                     </div>
                     <div class="cover" v-show="item.isSimilar">
                         <div class="similar">找相似</div>
@@ -52,7 +52,7 @@
 <script>
     import Bus from '../components/common/bus.js'
     import TitleTop from "../components/common/titleTop"
-  import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
+    import FooterTwo from '../components/common/footerTwo' //商品详情/列表底部
     import FooterHome from '../components/common/footerHome' //首页底部
     export default {
         name: "new",
@@ -64,7 +64,7 @@
                 piture:{
                     src:"http://img12.static.yhbimg.com/yhb-img01/2016/02/29/07/025d532df4d76507c663157d7f34927324.jpg?imageView2/2/w/640/h/240/q/60"
                 },
-                 data:{},
+                data:{},
                 indexData:{},
             }
 
@@ -104,13 +104,13 @@
 </script>
 
 <style lang="less" scoped>
-@import '../components/common/list/list.less';
-@import './search/iconfont.css';
-.list-wrap{
-    position: relative;
-    top:0;
-    left:0;
-}
+    @import '../components/common/list/list.less';
+    @import './search/iconfont.css';
+    .list-wrap{
+        position: relative;
+        top:0;
+        left:0;
+    }
     .dzimg {
         height: 5.9rem;
         width: 100%;
