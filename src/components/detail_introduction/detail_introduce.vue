@@ -1194,7 +1194,6 @@ export default {
         float: left;
         outline: none;
       }
-      
     }
   }
 }
