@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-//导入swiper
+//导入swiper(轮播插件)
 require ('./assets/swiper/swiper-3.4.2.min.css')
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
@@ -21,8 +21,8 @@ Vue.prototype.$api = "/api";
 Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
+    router,
+    store,
     axios,
-  render: h => h(App)
+    render: h => h(App)
 }).$mount('#app')
