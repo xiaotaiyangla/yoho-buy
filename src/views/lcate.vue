@@ -20,7 +20,7 @@
         <div class="list-wrap" ref="lis">
             <ul class="list-con">
                 <li v-for="item in data" :class="getClass(item.goodsId)">
-                    <img :src="(item.goodsImgs)[0]" :alt="item.goodsName">
+                    <img :src=`http://10.80.13.205:3000/(item.goodsImgs)[0]` :alt="item.goodsName">
                     <div class="desdetail">
                         <p class="prosname">{{item.goodsName}}</p>
                         <p class="aboutprice">
@@ -70,8 +70,10 @@
                 this.mySecondclass = data;
             });
             this.$http.get('/api/goods/goods-class',{
-                primaryclass:this.myPrimaryClass,
-                secondclass:this.mySecondclass
+                params:{
+                    primaryclass:this.myPrimaryClass,
+                    secondclass:this.mySecondclass
+                }
             }).then(({data})=>{
                 this.data = data;
             });
