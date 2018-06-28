@@ -9,14 +9,18 @@
                 <h1 class="store-name">BSN</h1>
                 <div class="fav-box">
                     <div class="favs">粉丝数:3.1w</div>
+                    <!--没收藏 class-b siA = true-->
                     <div class="not-collect" :class="{'class-a':isA,'class-b':!isA}" @click="getShow">
                         <i class="iconfont icon-shoucang-copy styli"></i>
-                        <span class="shouc1" @click="changeStatus">{{btnStatus?'收藏':'已收藏'}}</span>
+                        <!--<span class="shouc1" @click="changeStatus">{{btnStatus?'收藏':'已收藏'}}</span>-->
+                        <span class="shouc1" @click="changeStatus">{'btnStatus':istext,'btnNoStatus':!istext}</span>
+                        <div class="already" :class="{'chuxian':isB,'xiaoshi':!isB}">{{shouc?'店铺收藏成功':'店铺取消收藏'}}</div>
                     </div>
-                </div>
 
+                </div>
             </div>
 
+        <div class="tips">请您先登录</div>
 
         <!--tab切换部分-->
         <div class="tab">
@@ -40,6 +44,26 @@
                 </div>
                 <!--导航三内容-->
                 <div class="goods-nav" v-else-if="third">
+                    <!--全部分类列表(从lcate复制)-->
+                    <!--全部分类列表头部-->
+                    <ul class="top-btn">
+                        <li>默认
+                            <i class="iconfont icon-sanjiao_xia"></i>
+                        </li>
+                        <li>新品</li>
+                        <li>人气</li>
+                        <li class="tab-price">价格
+                            <span class="arrow">
+                    <i class="iconfont icon-shangjiantou i-block1"></i>
+                    <i class="iconfont icon-xiajiantou i-block"></i>
+                </span>
+                        </li>
+                        <li>筛选
+                            <i class="iconfont icon-sanjiao_xia"></i>
+                        </li>
+                    </ul>
+                    <!--全部分类列表内容-->
+                    <listmin></listmin>
 
                 </div>
             </div>
@@ -80,9 +104,13 @@
         components: {TitleTop,Listmin},
         data(){
             return{
+                likemsg:{},
+                isLike:false,
                 isA:false,
-                btnStatus:true,
+                istext:true,
                 isShow:false,
+                shouc:false,
+                isB:false,
                 items: [
                     {
                         name: "首页"
@@ -102,10 +130,48 @@
         },
         methods:{
             getShow(){
-                this.isA=!this.isA;
+                if(!this.isA){
+                    //已经转向了收藏
+                    this.$http.get('/api/user/collectShop',{
+                        params:{
+                            seller:1
+                        }
+                    }).then(({data})=>{
+                        this.likemsg = data;
+                        if(this.likemsg.errorcode == 1){
+                            this.istext.html('收藏');
+                            //弹框 请您先登录
+                            $('.tips').show();
+                            setInterval(function () {
+                                $('.tips').hide();
+                            },2000)
+                        }else {
+                            this.isA=!this.isA;
+                            this.istext.html('已收藏');
+                            this.shouc = !this.shouc;
+                            $('.already').show();
+                            setInterval(function () {
+                                $('.already').hide();
+                            },2000)
+                        }
+                        //console.log(this.likemsg);
+                    })
+                }else{
+                    //转向不收藏
+                    this.$http.get('/api/user/uncollectShop',{
+                        params:{
+                            seller:1
+                        }
+                    })
+                }
+
+                this.isB = !this.isB;
             },
             changeStatus(){
-                this.btnStatus=this.btnStatus?false:true;
+                this.istext = !this.istext;
+
+                jdk
+
             },
             showToggle(){
                 this.isShow = !this.isShow;
@@ -135,6 +201,12 @@
 </script>
 
 <style lang="less" scoped>
+    /*去除a链接点击时出现蓝色的背景*/
+    a {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+    }
     .class-a {
         color: red;
     }
@@ -144,6 +216,48 @@
     .hue {
         color: rgb(184,155,178);
         font-weight: 500;
+    }
+    .chuxian {
+        display: block;
+    }
+    .xiaoshi {
+        display: none;
+    }
+    .already {
+        display: none;
+        position: fixed;
+        text-align: center;
+        width: 50%;
+        padding: 15px;
+        top: 50%;
+        left: 50%;
+        margin-left: -25%;
+        margin-top: -45px;
+        background-color: rgba(0,0,0,.7);
+        color: #fff;
+        font-size: .6rem;
+        border: none;
+        z-index: 100;
+        box-sizing: border-box;
+        border-radius: 10px;
+    }
+    .tips {
+        display: none;
+        position: fixed;
+        text-align: center;
+        width: 50%;
+        padding: 15px;
+        top: 50%;
+        left: 50%;
+        margin-left: -25%;
+        margin-top: -45px;
+        background-color: rgba(0,0,0,.7);
+        color: #fff;
+        font-size: .6rem;
+        border: none;
+        z-index: 100;
+        box-sizing: border-box;
+        border-radius: 10px;
     }
     .branner-top {
         width: 100%;
@@ -228,6 +342,44 @@
                 display: inline-block;
                 width: 100%;
             }
+        }
+    }
+
+    /*全部商品的头部*/
+    .top-btn{
+        background-color: #fff;
+        width: 100%;
+        height: 1.7585rem;
+        display: flex;
+        position: relative;
+        top:-.2rem;
+        left: 0;
+        z-index: 999;
+        .arrow{
+            position: relative;
+            overflow: hidden;
+            .i-block1{
+                position: absolute;
+                top:-9px;
+                left:0;
+            }
+            .i-block{
+                position: absolute;
+                top:-2px;
+                left:0;
+            }
+            .gray{
+                color:#999;
+            }
+
+        }
+        li{
+            flex:1;
+            height: 1.7585rem;
+            line-height:1.7585rem;
+            text-align: center;
+            font-size: 14px;
+            color:#999;
         }
     }
 

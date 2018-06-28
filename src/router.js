@@ -16,6 +16,7 @@ import BringStockCenter from './views/OneFloorPart/BringStockCenter'
 import New from './views/new' //新品到着
 import BSC2 from './views/OneFloorPart/BSC2'//领劵中心子页
 import Coupons from './views/OneFloorPart/coupons'//查看我优惠券页
+import NewPeople from './views/OneFloorPart/newpeople'//新人专享福利
 import TOIS from './views/thirdFloorPart/TOIS' //热门品牌中TOIS
 import HotBrand from './views/thirdFloorPart/hotBrandShuff' //热门品牌中Cheett
 import BNS from './views/thirdFloorPart/BSN' //热门品牌中BNS
@@ -130,6 +131,12 @@ export default new Router({
         path:'/coupons',
         name:'coupons',
         component: Coupons,
+      },
+      //新人专享福利
+      {
+         path:'/newpeople',
+          name:'newpeople',
+          component:NewPeople
       },
       //热门品牌TOIS
       {

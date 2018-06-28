@@ -125,6 +125,26 @@
                     </div>
                     <!--导航三内容-->
                     <div class="goods-nav" v-else-if="third">
+                        <!--全部分类列表(从lcate复制)-->
+                        <!--全部分类列表头部-->
+                        <ul class="top-btn">
+                            <li>默认
+                                <i class="iconfont icon-sanjiao_xia"></i>
+                            </li>
+                            <li>新品</li>
+                            <li>人气</li>
+                            <li class="tab-price">价格
+                                <span class="arrow">
+                    <i class="iconfont icon-shangjiantou i-block1"></i>
+                    <i class="iconfont icon-xiajiantou i-block"></i>
+                </span>
+                            </li>
+                            <li>筛选
+                                <i class="iconfont icon-sanjiao_xia"></i>
+                            </li>
+                        </ul>
+                        <!--全部分类列表内容-->
+                        <listmin></listmin>
                     </div>
                 </div>
             </div>
@@ -285,7 +305,11 @@
         top:0;
         left:0;
     }
+    /*去除a链接点击时出现蓝色的背景*/
     a {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        -webkit-user-select: none;
+        -moz-user-select: none;
         outline: none;
     }
     .class-a {
@@ -422,24 +446,24 @@
     }
 
     /*tab-导航条*/
-    .shop-tabs {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        font-size: .75rem;
-        line-height: 2rem;
-        border-top: 1px solid #dededf;
-        border-bottom: 1px solid #dededf;
-        background-color: #fff;
-        .shop-tab-nav {
-            width: 33.33%;
-            text-align: center;
-            span {
-                display: inline-block;
-                width: 100%;
+        .shop-tabs {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            font-size: .75rem;
+            line-height: 2rem;
+            border-top: 1px solid #dededf;
+            border-bottom: 1px solid #dededf;
+            background-color: #fff;
+            .shop-tab-nav {
+                width: 33.33%;
+                text-align: center;
+                span {
+                    display: inline-block;
+                    width: 100%;
+                }
             }
         }
-    }
 
     //轮播图
     .container2 {
@@ -502,6 +526,44 @@
             img {
                 width: 100%;
             }
+        }
+    }
+
+    /*全部商品的头部*/
+    .top-btn{
+        background-color: #fff;
+        width: 100%;
+        height: 1.7585rem;
+        display: flex;
+        position: relative;
+        top:-.2rem;
+        left: 0;
+        z-index: 999;
+        .arrow{
+            position: relative;
+            overflow: hidden;
+            .i-block1{
+                position: absolute;
+                top:-9px;
+                left:0;
+            }
+            .i-block{
+                position: absolute;
+                top:-2px;
+                left:0;
+            }
+            .gray{
+                color:#999;
+            }
+
+        }
+        li{
+            flex:1;
+            height: 1.7585rem;
+            line-height:1.7585rem;
+            text-align: center;
+            font-size: 14px;
+            color:#999;
         }
     }
 </style>
