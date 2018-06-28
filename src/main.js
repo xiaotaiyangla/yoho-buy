@@ -13,7 +13,7 @@ require('./assets/font/iconfont.css')
 require('./assets/font3/iconfont.css')
 require('./assets/font4/iconfont.css')
 require('./assets/font5/iconfont.css')
-
+require('./assets/font6/iconfont.css')
 import axios from 'axios'
 import $ from 'jquery'
 Vue.prototype.$http = axios;
