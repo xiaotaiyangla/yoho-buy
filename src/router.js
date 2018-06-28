@@ -26,49 +26,52 @@ import ShopIntro3 from './views/thirdFloorPart/ShopIntroTotal/shopIntro3'//TOIS�
 import DetailPro from './components/detail_introduction/detail_introduce'
 import lifestyleBrands from './components/lifestyle_brands/lifestyle_brands'
 import cart from './components/cart/cart'
+import Order from './views/order/order'
+import Address from './views/address/address'
+import Show from './views/show/show'
 Vue.use(Router)
 export default new Router({
-  mode:"history",
+  mode: "history",
   routes: [
     {
-      path:'/',
-      redirect:'/index'
+      path: '/',
+      redirect: '/index'
     },
     //首页路由
     {
-      path:'/index',
-      name:'index',
-      component:Index
+      path: '/index',
+      name: 'index',
+      component: Index
     },
     //个人中心路由
     {
-      path:'/personalCenter',
-      name:'personalCenter',
+      path: '/personalCenter',
+      name: 'personalCenter',
       component: PersonalCenter,
     },
     //登录页面
     {
-      path:'/signIn',
-      name:'signIn',
-      component:SignIn,
-      children:[
+      path: '/signIn',
+      name: 'signIn',
+      component: SignIn,
+      children: [
         {
-          path:'international',
-          name:'international',
-          component:International
+          path: 'international',
+          name: 'international',
+          component: International
         },
         {
-          path:'sms_signIn',
-          name:'sms',
-          component:Sms
+          path: 'sms_signIn',
+          name: 'sms',
+          component: Sms
         }
-        ]
+      ]
     },
     //注册页面
     {
-      path:'/signUp',
-      name:'signUp',
-      component:SignUp
+      path: '/signUp',
+      name: 'signUp',
+      component: SignUp
     },
     //搜索页面路由
     {
@@ -82,6 +85,101 @@ export default new Router({
           component: List
         }]
     },
+    //购物车
+    {
+      path: '/cart',
+      name: "cart",
+      component: cart
+    },
+    //商品详情
+    {
+      path: '/product',
+      name: "product",
+      component: DetailPro
+    },
+    //精选潮流品牌
+    {
+      path: "/lifestyle-brands",
+      name: "lifestyle-brands",
+      component: lifestyleBrands
+    },
+    //店铺的页面
+    {
+      path: '/shop/:sellerName',
+      name: "shop",
+      component: Shop
+    },
+    //新品到着页面
+    {
+      path: '/lifestyle-new',
+      name: 'new',
+      component: New
+    },
+    //领劵中心 该路由只用来呈现页面方便铺页面，待修改
+    {
+      path: '/stock',
+      name: 'BringStockCenter',
+      component: BringStockCenter,
+      children: [
+        {
+          path: 'travel',
+          name: 'BSC2',
+          component: BSC2
+        }
+      ]
+    },
+    //领劵中心中点击查看我的优惠券跳转到:"优惠券"页面
+    {
+      path: '/coupons',
+      name: 'coupons',
+      component: Coupons,
+    },
+    //热门品牌TOIS
+    {
+      path: '/tois',
+      name: 'TOIS',
+      component: TOIS
+    },
+    //热门品牌Chett
+    {
+      path: '/hotbrand',
+      name: 'hotBrandShuff',
+      component: HotBrand
+    },
+    //热门品牌BSN
+    {
+      path: '/bns',
+      name: 'BNS',
+      component: BNS
+    },
+    //分类页面
+    {
+      path: '/cate',
+      name: 'cate',
+      component: Cate
+    },
+    //各种页面跳到的list页面
+    {
+      path: '/list',
+      component: ListToCate
+    },
+    //订单页面
+    {
+      path: '/order',
+      component: Order,
+    },
+    //地址页面
+    {
+      path: '/address',
+      component: Address,
+    },
+    //展示地址
+    {
+      path:'/show',
+      component:Show
+      
+    }
+  ]
       //购物车
       {
         path:'/cart',
