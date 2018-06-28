@@ -29,6 +29,8 @@ import cart from './components/cart/cart'
 import Order from './views/order/order'
 import Address from './views/address/address'
 import Show from './views/show/show'
+import orderList from './views/orderList/orderList.vue'
+
 Vue.use(Router)
 export default new Router({
   mode: "history",
@@ -48,6 +50,13 @@ export default new Router({
       path: '/personalCenter',
       name: 'personalCenter',
       component: PersonalCenter,
+      children: [
+        {
+          path: '/orders',
+          name: 'orderList',
+          component: orderList,
+        }
+      ]
     },
     //登录页面
     {
@@ -177,104 +186,24 @@ export default new Router({
     {
       path:'/show',
       component:Show
-      
-    }
+    },
+     //TOIS店铺简介
+     {
+       path: '/shopintroone',
+       name: 'shopIntro1',
+       component: ShopIntro1,
+     },
+     //Chett店铺简介
+     {
+       path: '/shopintrotwo',
+       name: 'shopIntro2',
+       component: ShopIntro2,
+     },
+     //BSN店铺简介
+     {
+       path: '/shopintrothir',
+       name: 'shopIntro3',
+       component: ShopIntro3,
+     }
   ]
-      //购物车
-      {
-        path:'/cart',
-        name:"cart",
-        component:cart
-      },
-      //商品详情
-      {
-        path: '/product',
-        name: "product",
-        component: DetailPro
-      },
-      //精选潮流品牌
-      {
-        path: "/lifestyle-brands",
-        name: "lifestyle-brands",
-        component: lifestyleBrands
-      },
-      //店铺的页面
-      {
-        path:'/shop/:sellerName',
-        name:"shop",
-        component: Shop
-      },
-      //新品到着页面
-      {
-        path:'/lifestyle-new',
-        name:'new',
-        component:New
-      },
-      //领劵中心 该路由只用来呈现页面方便铺页面，待修改
-      {
-        path:'/stock',
-        name:'BringStockCenter',
-        component:BringStockCenter,
-        children:[
-          {
-            path:'travel',
-            name:'BSC2',
-            component:BSC2
-          }
-        ]
-      },
-      //领劵中心中点击查看我的优惠券跳转到:"优惠券"页面
-      {
-        path:'/coupons',
-        name:'coupons',
-        component: Coupons,
-      },
-      //热门品牌TOIS
-      {
-        path:'/tois',
-        name:'TOIS',
-        component:TOIS
-      },
-      //热门品牌Chett
-      {
-        path:'/hotbrand',
-        name:'hotBrandShuff',
-        component:HotBrand,
-      },
-      //热门品牌BSN
-      {
-        path:'/bns',
-        name:'BNS',
-        component:BNS
-      },
-      //TOIS店铺简介
-      {
-        path:'/shopintroone',
-        name:'shopIntro1',
-        component:ShopIntro1,
-      },
-      //Chett店铺简介
-      {
-          path:'/shopintrotwo',
-          name:'shopIntro2',
-          component:ShopIntro2,
-      },
-      //BSN店铺简介
-      {
-          path:'/shopintrothir',
-          name:'shopIntro3',
-          component:ShopIntro3,
-      },
-      //分类页面
-      {
-        path: '/cate',
-        name:'cate',
-        component:Cate
-      },
-      //各种页面跳到的list页面
-      {
-        path:'/list',
-        component:ListToCate
-      }
-      ]
 })
