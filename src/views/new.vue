@@ -94,7 +94,11 @@
 
         },
         created(){
-            this.$http.get('/api/'+this.msg.toRoute,{primaryclass:this.msg.primaryclass}).then(({data})=>{
+            this.$http.get('/api/'+this.msg.toRoute,{
+                params:{
+                    primaryclass:this.msg.primaryclass
+                }
+                }).then(({data})=>{
                 this.data = data;
             });
 

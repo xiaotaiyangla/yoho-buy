@@ -26,49 +26,61 @@ import ShopIntro3 from './views/thirdFloorPart/ShopIntroTotal/shopIntro3'//TOIS�
 import DetailPro from './components/detail_introduction/detail_introduce'
 import lifestyleBrands from './components/lifestyle_brands/lifestyle_brands'
 import cart from './components/cart/cart'
+import Order from './views/order/order'
+import Address from './views/address/address'
+import Show from './views/show/show'
+import orderList from './views/orderList/orderList.vue'
+
 Vue.use(Router)
 export default new Router({
-  mode:"history",
+  mode: "history",
   routes: [
     {
-      path:'/',
-      redirect:'/index'
+      path: '/',
+      redirect: '/index'
     },
     //首页路由
     {
-      path:'/index',
-      name:'index',
-      component:Index
+      path: '/index',
+      name: 'index',
+      component: Index
     },
     //个人中心路由
     {
-      path:'/personalCenter',
-      name:'personalCenter',
+      path: '/personalCenter',
+      name: 'personalCenter',
       component: PersonalCenter,
+      children: [
+        {
+          path: '/orders',
+          name: 'orderList',
+          component: orderList,
+        }
+      ]
     },
     //登录页面
     {
-      path:'/signIn',
-      name:'signIn',
-      component:SignIn,
-      children:[
+      path: '/signIn',
+      name: 'signIn',
+      component: SignIn,
+      children: [
         {
-          path:'international',
-          name:'international',
-          component:International
+          path: 'international',
+          name: 'international',
+          component: International
         },
         {
-          path:'sms_signIn',
-          name:'sms',
-          component:Sms
+          path: 'sms_signIn',
+          name: 'sms',
+          component: Sms
         }
-        ]
+      ]
     },
     //注册页面
     {
-      path:'/signUp',
-      name:'signUp',
-      component:SignUp
+      path: '/signUp',
+      name: 'signUp',
+      component: SignUp
     },
     //搜索页面路由
     {
@@ -82,6 +94,7 @@ export default new Router({
           component: List
         }]
     },
+
       //购物车
       {
         path:'/cart',
@@ -177,6 +190,22 @@ export default new Router({
       {
         path:'/list',
         component:ListToCate
-      }
-      ]
+      },
+
+    //订单页面
+    {
+      path: '/order',
+      component: Order,
+    },
+    //地址页面
+    {
+      path: '/address',
+      component: Address,
+    },
+    //展示地址
+    {
+      path:'/show',
+      component:Show
+    }
+  ]
 })

@@ -70,8 +70,10 @@
                 this.mySecondclass = data;
             });
             this.$http.get('/api/goods/goods-class',{
-                primaryclass:this.myPrimaryClass,
-                secondclass:this.mySecondclass
+                params:{
+                    primaryclass:this.myPrimaryClass,
+                    secondclass:this.mySecondclass
+                }
             }).then(({data})=>{
                 this.data = data;
             });
