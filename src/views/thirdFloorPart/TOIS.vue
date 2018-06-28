@@ -1,7 +1,8 @@
 <template>
     <div>
         <title-top></title-top>
-        <router-link to="/tois">
+        <router-link to="/tois"></router-link>
+            <!--头部-->
             <div class="branner-top" style="background-image:url(http://img12.static.yhbimg.com/yhb-img02/2018/02/08/15/02ae8e4bc973ba0e43abb3b18b7ecba4d8.jpg?imageMogr2/auto-orient/strip/thumbnail/x234/crop/750x234)">
                 <div class="shopcover"></div>
                 <img class="logo"  src="http://img11.static.yhbimg.com/yhb-img01/2017/11/06/13/014596c5488e7ce047f839dd55bc397398.jpg?imageMogr2/thumbnail/100x100/extent/100x100/background/d2hpdGU=/position/center/quality/80" alt="">
@@ -15,7 +16,38 @@
                 </div>
 
             </div>
-        </router-link>
+
+            <!--tab切换部分-->
+            <div class="tab">
+                <!--nav-->
+                <ul class="shop-tabs">
+                    <li class="shop-tab-nav" v-for="(item,index) in items" @click="goPage(index)" :class="{hue:changeHue == index}"  style="border-right: 1px solid rgb(222,223,229)">
+                        <span>{{item.name}}</span>
+                    </li>
+                </ul>
+                <!--nav内容-->
+                <div class="tab-panels">
+                    <!--导航一内容-->
+                    <div class="home-nav" v-if="first">
+                        <!--列表-->
+                        <listmin></listmin>
+
+                    </div>
+                    <!--导航二内容-->
+                    <div class="new-nav" v-else-if="second">
+                        <!--列表-->
+                        <listmin></listmin>
+
+                    </div>
+                    <!--导航三内容-->
+                    <div class="goods-nav" v-else-if="third">
+                        <!--列表-->
+
+
+                    </div>
+                </div>
+            </div>
+
         <!--底部-->
         <div class="shop-foot-wrapper">
             <ul>
@@ -42,14 +74,30 @@
 
 <script>
     import TitleTop from '../../components/common/titleTop'
+    import Listmin from '../../components/common/listmin'
     export default {
         name: "t-o-i-s",
-        components: {TitleTop},
+        components: {TitleTop,Listmin},
         data(){
             return{
                 isA:false,
                 btnStatus:true,
-                isShow:false
+                isShow:false,
+                items: [
+                    {
+                        name: "首页"
+                    },
+                    {
+                        name: "新品"
+                    },
+                    {
+                        name: "全部商品"
+                    }
+                ],
+                first: true,
+                second: false,
+                third: false,
+                changeHue:0,
             }
         },
         methods:{
@@ -61,7 +109,27 @@
             },
             showToggle(){
                 this.isShow = !this.isShow;
+            },
+            goPage(index) {
+                console.log(index);
+                if (index == 0) {
+                    this.first = true;
+                    this.second = false;
+                    this.third = false;
+                    this.changeHue = index;
+                } else if (index == 1) {
+                    this.first = false;
+                    this.second = true;
+                    this.third = false;
+                    this.changeHue = index;
+                } else if (index == 2) {
+                    this.first = false;
+                    this.second = false;
+                    this.third = true;
+                    this.changeHue = index;
+                }
             }
+
         }
     }
 </script>
@@ -73,6 +141,10 @@
     .class-b {
         color: white;
     }
+    .hue {
+        color: rgb(184,155,178);
+        font-weight: 500;
+    }
     .branner-top {
         width: 100%;
         height: 5.85rem;
@@ -80,6 +152,7 @@
         overflow: hidden;
         background-size: 100%;
         background-repeat: no-repeat;
+        overflow: hidden;
         .shopcover {
             height: 100%;
             width: 100%;
@@ -136,6 +209,35 @@
                 }
             }
 
+        }
+    }
+
+    /*tab-导航条*/
+    .shop-tabs {
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        font-size: .75rem;
+        line-height: 2rem;
+        border-top: 1px solid #dededf;
+        border-bottom: 1px solid #dededf;
+        background-color: #fff;
+        .shop-tab-nav {
+            width: 33.33%;
+            text-align: center;
+            span {
+                display: inline-block;
+                width: 100%;
+            }
+        }
+    }
+
+    /*tab-内容*/
+    .tab-panels {
+        overflow: hidden;
+        .home-nav {
+            overflow: hidden;
         }
     }
 

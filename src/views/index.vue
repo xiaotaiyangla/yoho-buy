@@ -32,7 +32,9 @@
         <div>
             <div class="floorTitle" style="position: relative">
                 <h2 style="display: inline-block">人气单品排行</h2>
+                <!--<a href="http://localhost:8080/lifestyle-new?from=index&query=top-sale">-->
                 <i style="position: absolute;right: 1rem" class="iconfont icon-fenleiweixuanzhong"></i>
+                <!--</a>-->
             </div>
             <popular-item></popular-item>
         </div>
@@ -156,6 +158,9 @@
     *{
         margin:0;
         padding:0;
+    }
+    a {
+        outline: none;
     }
     .outest-container {
         width: 100%;

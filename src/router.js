@@ -114,16 +114,16 @@ export default new Router({
       },
       //领劵中心 该路由只用来呈现页面方便铺页面，待修改
       {
-        path:'/stock',
-        name:'BringStockCenter',
-        component:BringStockCenter,
-        children:[
-          {
-            path:'travel',
-            name:'BSC2',
-            component:BSC2
-          }
-        ]
+          path:'/stock',
+          name:'BringStockCenter',
+          component:BringStockCenter,
+          children:[
+              {
+                  path:'travel',
+                  name:'BSC2',
+                  component:BSC2
+              }
+          ]
       },
       //领劵中心中点击查看我的优惠券跳转到:"优惠券"页面
       {
@@ -143,7 +143,7 @@ export default new Router({
         name:'hotBrandShuff',
         component:HotBrand,
       },
-      //热门品牌BSN
+      //热门品牌bnsN
       {
         path:'/bns',
         name:'BNS',

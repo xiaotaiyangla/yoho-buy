@@ -1,9 +1,9 @@
 <template>
     <div class="icons-wrapper">
         <ul class="icons-list">
-            <li @click="goPage(index)" class="icons-item" v-for="(item,index) in items">
-                <a class="imgebar" href=""><img :src="item.src" alt=""></a>
-                <a class="linkbar" href="">{{item.name}}</a>
+            <li class="icons-item" v-for="(item,index) in items" :class="getClass(index)">
+                <a class="imgebar" @click="toList(index)"><img :src="item.src" alt=""></a>
+                <a class="linkbar">{{item.name}}</a >
             </li>
         </ul>
     </div>
@@ -36,7 +36,7 @@
                     {
                         src:"http://img11.static.yhbimg.com/yhb-img01/2017/03/02/09/018c7c0e43d281755461e41ef07e5de089.png?imageView2/2/w/98/h/98/q/60",
                         name:"领劵中心",
-                        hrefs:""
+                        hrefs:"/stock?from=index&query=lingquan"
                     },
                     {
                         src:"http://img11.static.yhbimg.com/yhb-img01/2017/02/03/09/0189bc583b9c0fc55a983116b3e1c460dc.png?imageView2/2/w/98/h/98/q/60",

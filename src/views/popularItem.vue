@@ -19,9 +19,6 @@
             </ul>
         </div>
 
-        <!--<div style="background-image: url(http://img11.static.yhbimg.com/yhb-img01/2017/05/25/16/01b43fa1d22531b1ddd8513580d0b4e68f.jpg?imageView2/2/w/640/h/26/q/60);" class="id-image"></div>-->
-        <!--<a href=""><img src="http://img10.static.yhbimg.com/yhb-img01/2017/08/16/17/01a00e99aefb6466b2ee756852035eb95f.jpg?imageView2/3/w/640/h/200/q/60" alt=""></a>-->
-
         <ul>
             <li v-for="digimg in digimgs">
                 <div style="background-image: url(http://img11.static.yhbimg.com/yhb-img01/2017/05/25/16/01b43fa1d22531b1ddd8513580d0b4e68f.jpg?imageView2/2/w/640/h/26/q/60);" class="id-image"></div>
