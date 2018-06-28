@@ -259,7 +259,7 @@
                 <i class="icon-favorite-another icon-favorite" @click="favorite()" ref="favorite"   style="color:red" ></i>
                 <p>收藏</p>
             </a>
-            <a class="add-cart" @click="isAdd()">
+            <a class="add-cart" @click="isAdd">
                <span class="enter">加入购物车</span>  
             </a>
         </div>
@@ -379,6 +379,7 @@ export default {
       success:false,
       col:"",
       size:"",
+        msg:{},
     };
   },
   created() {
@@ -390,11 +391,11 @@ export default {
       })
       .then(response => {
         console.log(response.data);
-        // console.log(this.goodslist)
+        console.log(this.goodslist)
         this.goodslist = response.data;
         this.comments = response.data.comments;
         this.count = response.data.comments.count;
-        // console.log(this.goodslist);
+        console.log(this.goodslist);
       })
       .catch(function(error) {
         console.log(error);
@@ -455,11 +456,8 @@ export default {
     handleScroll() {
       if (document.documentElement.scrollTop + document.body.scrollTop > 2000) {
         this.returnTop = true;
-        // console.log(document.documentElement.scrollTop + document.body.scrollTop)
-        // console.log(this.returnTop);
       } else {
         this.returnTop = false;
-        // console.log(this.returnTop)
       }
     },
     shadowchange() {
@@ -468,15 +466,34 @@ export default {
     },
     isAdd() {
       this.panel = !this.panel;
-      console.log(this.panel);
     },
     favorite() {
-      (this.love = !this.love), (this.loveheart = !this.loveheart);
+      this.love = !this.love;
+      this.loveheart = !this.loveheart;
     },
     addcarts() {
       this.amount = this.amounts;
-      console.log(this.amounts);
-      console.log(this.amount);
+        this.panel = !this.panel;
+        this.msg={
+            goodsid:this.goodslist.goodsid,
+            count: this.amount,
+            //蔡燕存了size和颜色之后再上传一下
+            size:'',
+            color:'',
+            singlePrice:this.goodslist.goodsPrice.currentPrice
+        };
+        //同时还要向后台穿一波数据,接口到了再写
+        this.$http.get('/api/user/addCart',{
+            params:{
+                goodsid:this.goodslist.goodsId,
+                size:'f',
+                color:'yellow',
+                count:this.amount
+            }
+        }).then((data)=>{
+            //console.log(data);
+        });
+        this.$store.commit("addCartMsg",this.msg);
     },
     colorchange(){
       this.colors=!this.colors;

@@ -1,9 +1,9 @@
 <template>
     <div class="icons-wrapper">
         <ul class="icons-list">
-            <li @click="goPage(index)" class="icons-item" v-for="(item,index) in items">
-                <a class="imgebar" href=""><img :src="item.src" alt=""></a>
-                <a class="linkbar" href="">{{item.name}}</a>
+            <li class="icons-item" v-for="(item,index) in items" :class="getClass(index)">
+                <a class="imgebar" @click="toList(index)"><img :src="item.src" alt=""></a>
+                <a class="linkbar">{{item.name}}</a >
             </li>
         </ul>
     </div>
@@ -107,20 +107,20 @@
                 height: 70px;
                 text-align: center;
                 .imgebar {
-                display: block;
-                margin: 0 auto;
-                text-align: center;
-                width: 40px;
-                height: 40px;
-                line-height: 40px;
-                box-sizing: border-box;
-                overflow: hidden;
-                border: 1px solid #e0e0e0;
-                border-radius: 50%;
-                img {
                     display: block;
-                    width: 100%;
-                    height: 100%;
+                    margin: 0 auto;
+                    text-align: center;
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 50%;
+                    img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
                     }
                 }
                 .linkbar {

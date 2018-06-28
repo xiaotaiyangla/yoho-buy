@@ -2,24 +2,24 @@
 <!-- 加入购物车的页面 -->
     <div>
         <div class="addcart-page" v-if="panel">
-            <div  class="chose-panel"   >
+            <div  class="chose-panel">
                 <div class="lookout" v-if="ingnorecolor">请选择颜色呐~</div>
                 <div class="lookout"  v-if="ingnoresize">请选择尺寸呐~</div>
                 <div class="lookout" v-if="ingnoretwo">请选择颜色和尺寸呐~</div>
                 <div class="lookout" v-if="success">成功添加入购物车了呢~</div>
                 <!-- 图片 -->
                 <div class="choose-wrap">
-                    <img v-for="item in goodslist.goodsImgs" :src="item"  alt="" style="width:4.1rem;min-height:5rem" >
+                    <img src="" alt="" class="proimg">
                     <div class="choose">
                         <p v-if="goodslist.goodsPrice">¥{{goodslist.goodsPrice.currentPrice}}</p>
                         <p v-if="stillchoose" >请选择颜色,尺码</p>
                         <p v-if="alreadychoose">已经选择黑色，x</p>
-                        <span class="iconfont remove icon-shanchu" @click="isAdd()"></span>
+                        <span class="iconfont remove icon-shanchu" @click="isAdd"></span>
                     </div>
                 </div>
                <!-- 颜色 -->
                 <div class="color">
-                    <span  v-if="colors"     class="color-name">颜色 <span class="btn" @click="colorchange()">黑色</span></span>
+                    <span  v-if="colors" class="color-name">颜色 <span class="btn" @click="colorchange()">黑色</span></span>
                     <span v-if="color" class="color-name">颜色 <span class="btn" @click="colorchange()"  style="background:white;border:1px solid;color:black">黑色</span></span>
                 </div>
                 <!-- 尺码 -->
@@ -38,7 +38,7 @@
               </div>
               <div class="btn-wrap">
                   <button class="buynow" >立即购买</button>
-                  <button class="addCarts" @click="addcarts()" >加入购物车</button>
+                  <button class="addCarts" @click="addcarts">加入购物车</button>
               </div>
             </div>
         </div>
@@ -67,7 +67,7 @@ export default {
       ingnoretwo: false,
       success: false,
       stillchoose:true,
-      alreadychoose:false,
+      alreadychoose:false
     };
   },
   mounted() {
@@ -94,75 +94,68 @@ export default {
   },
 
   methods: {
-    del() {
-      if (this.amounts <= 1) {
-        this.amounts = 1;
-      } else {
-        this.amounts--;
+      del() {
+          if (this.amounts <= 1) {
+              this.amounts = 1;
+          } else {
+              this.amounts--;
+          }
+      },
+      commentactive() {
+          if (this.count <= 0) {
+              this.comments == this.comments;
+          } else {
+              (this.comments = !this.comments), (this.comment = !this.comment);
+          }
+      },
+      active() {
+          (this.normalproblem = !this.normalproblem),
+              (this.normalproblems = !this.normalproblems);
+      },
+      backTop() {
+          let back = setInterval(() => {
+              if (document.body.scrollTop || document.documentElement.scrollTop) {
+                  document.body.scrollTop -= 100;
+                  document.documentElement.scrollTop -= 100;
+              } else {
+                  clearInterval(back);
+              }
+          });
+      },
+      handleScroll() {
+          if (document.documentElement.scrollTop + document.body.scrollTop > 2000) {
+              this.returnTop = true;
+              // console.log(document.documentElement.scrollTop + document.body.scrollTop)
+              // console.log(this.returnTop);
+          } else {
+              this.returnTop = false;
+              // console.log(this.returnTop)
+          }
+      },
+      shadowchange() {
+          this.shadow = !this.shadow;
+          console.log(this.shadow);
+      },
+      isAdd() {
+          this.panel = !this.panel;
+      },
+      favorite() {
+          (this.love = !this.love), (this.loveheart = !this.loveheart);
+      },
+      addcarts() {
+          this.amount = this.amounts;
+          this.panel = !this.panel;
+      },
+      colorchange() {
+          this.colors = !this.colors;
+          console.log(this.colors);
+          this.color = !this.color;
+          console.log(this.color);
+      },
+      sizechange() {
+          this.size = !this.size;
+          this.sizes = !this.sizes;
       }
-    },
-    commentactive() {
-      if (this.count <= 0) {
-        this.comments == this.comments;
-      } else {
-        (this.comments = !this.comments), (this.comment = !this.comment);
-      }
-    },
-    active() {
-      (this.normalproblem = !this.normalproblem),
-        (this.normalproblems = !this.normalproblems);
-    },
-    backTop() {
-      let back = setInterval(() => {
-        if (document.body.scrollTop || document.documentElement.scrollTop) {
-          document.body.scrollTop -= 100;
-          document.documentElement.scrollTop -= 100;
-        } else {
-          clearInterval(back);
-        }
-      });
-    },
-    handleScroll() {
-      if (document.documentElement.scrollTop + document.body.scrollTop > 2000) {
-        this.returnTop = true;
-        // console.log(document.documentElement.scrollTop + document.body.scrollTop)
-        // console.log(this.returnTop);
-      } else {
-        this.returnTop = false;
-        // console.log(this.returnTop)
-      }
-    },
-    shadowchange() {
-      this.shadow = !this.shadow;
-      console.log(this.shadow);
-    },
-    isAdd() {
-      this.panel = !this.panel;
-      console.log(this.panel);
-    },
-    favorite() {
-      (this.love = !this.love), (this.loveheart = !this.loveheart);
-    },
-    addcarts() {
-      this.amount = this.amounts;
-      console.log(this.amounts);
-      console.log(this.amount);
-      //   if(this.colors=true){
-      //       console.log(this.colors)
-      //       this.ingnorecolor=true
-      //       console.log(this.ingnorecolor);
-      //   }
-    },
-    colorchange() {
-      this.colors = !this.colors;
-      console.log(this.colors);
-      this.color = !this.color;
-      console.log(this.color);
-    },
-    sizechange() {
-      this.size = !this.size;
-      this.sizes = !this.sizes;
-    }
   }
 };
 </script>
@@ -190,7 +183,7 @@ export default {
     margin-top: -45px;
     background-color: rgba(0, 0, 0, 0.7);
     color: #fff;
-    font-size: 0.6rem;
+    font-size: 14px;
     border: none;
     z-index: 100;
     box-sizing: border-box;
@@ -211,14 +204,14 @@ export default {
       border-bottom: 1px solid #e6e6e6;
       width: 16rem;
       margin: 0 auto;
-      img {
-        width: 4.1rem;
-        min-height: 5rem;
+        .proimg{
+        width: 4.7rem;
+          height:6.272rem;
         position: absolute;
         top: -1.5rem;
         border: 1px solid #e6e6e6;
+          z-index: 999;
         border-radius: 5px;
-        margin-left: 1rem;
       }
       .choose {
         display: inline-block;
@@ -226,16 +219,12 @@ export default {
         margin-left: 6rem;
         height: auto;
         margin-top: 0.75rem;
-        font-size: 1rem;
+        font-size: 14px;
         line-height: 1.2rem;
       }
       .remove {
         // background: url(./delete.png) no-repeat;
-        width: 1rem;
-        height: 1rem;
         float: right;
-        width: 1.5rem;
-        height: 1.5rem;
         text-align: center;
         line-height: 1.5rem;
         // color: #b1b1b1;
@@ -245,7 +234,7 @@ export default {
         left: 15rem;
       }
       .icon-shanchu{
-          font-size: 1rem;
+          font-size:14px;
       }
     }
     .color {
@@ -254,7 +243,7 @@ export default {
       overflow: hidden;
       border-bottom: 1px solid #e6e6e6;
       margin: 0 auto;
-      font-size: 1rem;
+      font-size: 14px;
       height: 3.6rem;
       .color-name {
         margin-top: 1.25rem;
@@ -279,7 +268,7 @@ export default {
       margin-top: 1.25rem;
       .number {
         float: left;
-        font-size: 1rem;
+        font-size: 14px;
         margin-top: 0.5rem;
         margin-left: 1.4rem;
         margin-right: 0.3rem;
@@ -307,7 +296,7 @@ export default {
         text-align: center;
         line-height: 2rem;
         outline: none;
-        font-size: 1rem;
+          font-size: 14px;
       }
     }
     .btn-wrap {
@@ -320,7 +309,7 @@ export default {
         border: none;
         background: #444;
         color: #fff;
-        font-size: 0.8rem;
+          font-size: 14px;
         float: left;
         outline: none;
       }
@@ -330,7 +319,7 @@ export default {
         border: none;
         background: #d0021b;
         color: #fff;
-        font-size: 0.8rem;
+          font-size: 14px;
         float: left;
         outline: none;
       }
