@@ -75,7 +75,11 @@
         },
         mounted(){
             let listScroll = new BScroll(this.$refs.lis,{click:true});
-            this.$http.get('/api/search',{keyword:this.query}).then(({data})=>{
+            this.$http.get('/api/search',{
+                params:{
+                    keyword:this.query
+                }
+                }).then(({data})=>{
                 this.data = data;
                 console.log(this.data);
             })
