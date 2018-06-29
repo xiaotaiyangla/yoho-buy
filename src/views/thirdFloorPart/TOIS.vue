@@ -73,7 +73,7 @@
                     <div class="sub-group" v-show="isShow">
                         <dl>
                             <dd>
-                                <a href="javascript:;">成人用品</a>
+                                <a href="javascript:;">日用品</a>
                             </dd>
                         </dl>
                         <div class="sharp"></div>

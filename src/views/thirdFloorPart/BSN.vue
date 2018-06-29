@@ -12,7 +12,9 @@
                     <!--没收藏 class-b siA = true-->
                     <div class="not-collect" :class="{'class-a':isA,'class-b':!isA}" @click="getShow">
                         <i class="iconfont icon-shoucang-copy styli"></i>
-                        <span class="shouc1" @click="changeStatus">{{btnStatus?'收藏':'已收藏'}}</span>
+                        <span class="shouc1">
+                            <!--{{btnStatus?'收藏':'已收藏'}}-->
+                        </span>
                         <div class="already" :class="{'chuxian':isB,'xiaoshi':!isB}">{{shouc?'店铺收藏成功':'店铺取消收藏'}}</div>
                     </div>
 
@@ -106,7 +108,7 @@
                 likemsg:{},
                 isLike:false,
                 isA:false,
-                btnStatus:true,
+                // btnStatus:true,
                 isShow:false,
                 shouc:false,
                 isB:false,
@@ -142,7 +144,7 @@
                             $('.tips').show();
                             setInterval(function () {
                                 $('.tips').hide();
-                            },2000)
+                            },3000)
                         }else {
                             this.isA=!this.isA;
                             this.shouc = !this.shouc;
@@ -164,10 +166,10 @@
 
                 this.isB = !this.isB;
             },
-            changeStatus(){
-                this.btnStatus=this.btnStatus?false:true;
-
-            },
+            // changeStatus(){
+            //     this.btnStatus=this.btnStatus?false:true;
+            //
+            // },
             showToggle(){
                 this.isShow = !this.isShow;
             },
